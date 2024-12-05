@@ -12,12 +12,13 @@ function Navbar() {
         <img src="/img/logo-light.png" alt="logo" className="w-32" />
       </div>
 
-      <div className="hidden md:flex gap-x-4 items-center flex-1 max-w-xl">
+      <div className="hidden md:flex gap-x-4 items-center flex-1 md:max-w-md lg:max-w-xl">
         <form action="" className="w-full" onSubmit={(e) => e.preventDefault()}>
           <div className="flex items-center">
             <input
               type="text"
               className="outline-none border rounded-l-full w-full h-10 px-4 focus:border-blue-600"
+              placeholder="Search"
             />
             <button
               type="submit"
