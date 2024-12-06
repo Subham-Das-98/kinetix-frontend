@@ -1,20 +1,20 @@
 import React from "react";
 import Navbar from "./components/navigation/Navbar";
 import LeftNav from "./components/navigation/LeftNav";
+import BottomNav from "./components/navigation/BottomNav";
 
 function App() {
   return (
     <>
       <header className="sticky top-0">
-        <nav>
           <Navbar />
-        </nav>
       </header>
       <aside className="">
-        <nav>
+          {/* visible only in medium devices */}
           <LeftNav />
-        </nav>
       </aside>
+      {/* visible only in mobile devices  */}
+      <BottomNav />
       <main></main>
     </>
   );
