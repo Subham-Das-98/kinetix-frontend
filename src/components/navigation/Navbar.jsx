@@ -36,9 +36,9 @@ function Navbar() {
       <div className="flex gap-x-2.5 sm:gap-x-4 md:gap-x-6 lg:gap-x-8 mr-4 sm:mr-5 md:mr-6 lg:mr-8">
         <CiSearch className="cursor-pointer text-2xl md:hidden" />
         <MdMic className="cursor-pointer text-2xl md:hidden" />
-        <AiOutlineVideoCameraAdd className="cursor-pointer text-2xl" />
+        <AiOutlineVideoCameraAdd className="hidden md:block cursor-pointer text-2xl" />
         <BsBell className="cursor-pointer text-2xl" />
-        <CiUser className="cursor-pointer text-2xl" />
+        <CiUser className="hidden md:block cursor-pointer text-2xl" />
       </div>
     </div>
   );

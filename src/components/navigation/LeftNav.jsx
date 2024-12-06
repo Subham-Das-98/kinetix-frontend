@@ -20,12 +20,12 @@ import { SiYoutubegaming } from "react-icons/si";
 
 function LeftNav() {
   return (
-    <div className="hidden md:block w-max divide-y pb-4 ml-3 max-h-[calc(100vh-72px)] overflow-y-scroll">
+    <div className="hidden md:block md:w-[200px] lg:w-[236px] divide-y pb-4 ml-3 max-h-[calc(100vh-72px)] overflow-y-scroll">
       <div className="flex flex-col pb-3">
         <Link to={"/"}>
           <div className="flex items-center gap-x-4 px-5 py-2 hover:bg-slate-200 rounded-lg">
             <IoMdHome className="text-2xl" />
-            <span className="sm:pr-16 md:pr-20 lg:pr-24">Home</span>
+            <span className="">Home</span>
           </div>
         </Link>
         <Link to={"/channel/:username/studio"}>
