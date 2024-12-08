@@ -1,3 +1,4 @@
+// Left Navigation for small to medium devices only, screen size < 768px
 import React from "react";
 import { Link } from "react-router-dom";
 import { IoMdHome } from "react-icons/io";
@@ -9,8 +10,8 @@ import { MdOutlineSubscriptions } from "react-icons/md";
 function BottomNav() {
   return (
     <>
-      <nav className="fixed bottom-2 w-full">
-        <div className="md:hidden">
+      <nav className="md:hidden fixed bottom-0 w-full bg-white py-2">
+        <div className="">
           <ul className="flex justify-around text-xs text-center">
             <li>
               <Link to={"/"}>

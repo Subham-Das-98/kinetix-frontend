@@ -1,23 +1,19 @@
 import React from "react";
-import Navbar from "./components/navigation/Navbar";
-import LeftNav from "./components/navigation/LeftNav";
-import BottomNav from "./components/navigation/BottomNav";
+import { Outlet } from "react-router-dom";
+import { Navbar, LeftNav, BottomNav, FlexContainer } from "./components";
+import { HomePage } from "./pages";
 
-function App() {
+function Layout() {
   return (
     <>
-      <header className="sticky top-0">
-          <Navbar />
-      </header>
-      <aside className="">
-          {/* visible only in medium devices */}
-          <LeftNav />
-      </aside>
-      {/* visible only in mobile devices  */}
+      <Navbar />
+      <FlexContainer>
+        <LeftNav />
+        <HomePage />
+      </FlexContainer>
       <BottomNav />
-      <main></main>
     </>
   );
 }
 
-export default App;
+export default Layout;
