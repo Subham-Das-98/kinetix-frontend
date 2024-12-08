@@ -59,7 +59,7 @@ function LeftNav() {
                   <span>Playlist</span>
                 </div>
               </Link>
-              <Link to={"/channel/:username"}>
+              <Link to={"/channel/YourChannelName"}>
                 <div className="flex items-center gap-x-4 px-5 py-2 hover:bg-slate-200 rounded-lg">
                   <GrChannel className="text-2xl" />
                   <span>Your Channel</span>

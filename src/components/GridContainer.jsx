@@ -4,10 +4,10 @@ function GridContainer({ children }) {
   return (
     <>
       <div
-        className="mx-3 md:mr-3"
+        className="mx-3 md:mx-0 md:mr-3"
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(18rem, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(18.75rem, 1fr))",
           gap: ".75rem",
         }}
       >

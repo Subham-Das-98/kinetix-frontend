@@ -1,7 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { Navbar, LeftNav, BottomNav, FlexContainer } from "./components";
-import { HomePage } from "./pages";
 
 function Layout() {
   return (
@@ -9,7 +8,7 @@ function Layout() {
       <Navbar />
       <FlexContainer>
         <LeftNav />
-        <HomePage />
+        <Outlet />
       </FlexContainer>
       <BottomNav />
     </>

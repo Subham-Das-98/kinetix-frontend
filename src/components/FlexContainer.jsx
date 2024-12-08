@@ -3,7 +3,7 @@ import React from "react";
 function FlexContainer({ children }) {
   return (
     <>
-      <div className="block md:flex gap-x-3">{children}</div>
+      <div className="flex md:gap-x-3">{children}</div>
     </>
   );
 }
