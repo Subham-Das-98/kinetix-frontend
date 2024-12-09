@@ -35,15 +35,15 @@ function ChannelPage() {
       <main className="w-full">
         <div className="w-auto h-24 md:h-32 lg:h-40 bg-slate-600 md:mr-3">
           <img
-            src="/test-banner.jpg"
+            src="/temp/test-banner.jpg"
             alt=""
-            className="w-full h-24 md:h-32 lg:h-40 object-cover"
+            className="w-full h-full object-cover"
           />
         </div>
         <div className="flex gap-5 mt-3 lg:mt-5 mx-2.5 lg:mx-0">
           <div>
             <img
-              src="/test-profile.png"
+              src="/temp/test-profile.png"
               alt=""
               className="w-20 md:w-28 lg:w-36 aspect-square object-cover rounded-full"
             />

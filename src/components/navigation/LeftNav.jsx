@@ -65,7 +65,7 @@ function LeftNav() {
                   <span>Your Channel</span>
                 </div>
               </Link>
-              <Link to={"/channel/:username/videos"}>
+              <Link to={"/channel/YourChannelName/videos"}>
                 <div className="flex items-center gap-x-4 px-5 py-2 hover:bg-slate-200 rounded-lg">
                   <MdOndemandVideo className="text-2xl" />
                   <span>Your Videos</span>

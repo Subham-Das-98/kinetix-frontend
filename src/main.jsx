@@ -13,17 +13,24 @@ import {
   ChannelPage,
   ChannelHomePage,
   ChannelVideosPage,
+  WatchPage
 } from "./pages";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
-      <Route path="" element={<HomePage />} />
-      <Route path="/channel/:username" element={<ChannelPage />}>
-        <Route path="/channel/:username" element={<ChannelHomePage />} />
-        <Route path="/channel/:username/videos" element={<ChannelVideosPage />} />
+    <>
+      <Route path="/" element={<Layout />}>
+        <Route path="" element={<HomePage />} />
+        <Route path="/channel/:username" element={<ChannelPage />}>
+          <Route path="/channel/:username" element={<ChannelHomePage />} />
+          <Route
+            path="/channel/:username/videos"
+            element={<ChannelVideosPage />}
+          />
+        </Route>
       </Route>
-    </Route>
+      <Route path="/watch" element={<WatchPage />} />
+    </>
   )
 );
 

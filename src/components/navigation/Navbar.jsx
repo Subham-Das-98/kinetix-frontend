@@ -4,6 +4,7 @@ import { MdMic } from "react-icons/md";
 import { AiOutlineVideoCameraAdd } from "react-icons/ai";
 import { BsBell } from "react-icons/bs";
 import { CiUser } from "react-icons/ci";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
@@ -12,7 +13,9 @@ function Navbar() {
         <nav className="bg-white">
           <div className="flex items-center justify-between">
             <div className="">
+              <Link to="/">
               <img src="/img/logo-light.png" alt="logo" className="w-32" />
+              </Link>
             </div>
 
             <div className="hidden md:flex gap-x-4 items-center flex-1 md:max-w-md lg:max-w-xl">
