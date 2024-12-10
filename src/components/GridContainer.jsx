@@ -1,14 +1,14 @@
 import React from "react";
 
-function GridContainer({ children }) {
+function GridContainer({ children, colWidth = "16.75rem" }) {
   return (
     <>
       <div
-        className="mx-3 md:mx-0 md:mr-3"
+        className={`grid mx-3 md:mx-0 md:mr-3`}
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(16.75rem, 1fr))",
-          gap: ".75rem",
+          gridTemplateColumns: `repeat(auto-fill, minmax(${colWidth}, 1fr))`,
+          rowGap: ".75rem",
+          columnGap: ".75rem"
         }}
       >
         {children}

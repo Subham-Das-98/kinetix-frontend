@@ -1,19 +1,21 @@
 import React from "react";
 import { VideoCard } from "./index.js";
 
-function VideoList() {
+function VideoList(props) {
   return (
     <>
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
+      <VideoCard {...props} />
+      <VideoCard {...props} />
+      <VideoCard {...props} />
+      <VideoCard {...props} />
+      <VideoCard {...props} />
+      <VideoCard {...props} />
+      <VideoCard {...props} />
+      <VideoCard {...props} />
+      <VideoCard {...props} />
+      <VideoCard {...props} />
+      <VideoCard {...props} />
+      <VideoCard {...props} />
     </>
   );
 }
