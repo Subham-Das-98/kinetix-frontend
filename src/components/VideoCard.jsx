@@ -9,12 +9,13 @@ function VideoCard({
   hideProfile = false,
   hideChannelName = false,
   cardType = "block",
-  cardHeight = "h-48",
+  cardHeight = "aspect-video",
   cardWidth = "full",
   fontSize = "lg:text-lg",
   fontWeight = "font-semibold",
   lineHeight = "leading-4 lg:leading-5",
   spaceY = "space-y-2",
+  spaceX = "space-x-0"
 }) {
   const navigate = useNavigate();
 
@@ -26,7 +27,7 @@ function VideoCard({
   return (
     <>
       <div>
-        <NavLink to="/watch" className={`${cardType} ${spaceY}`}>
+        <NavLink to="/watch" className={`${cardType} ${spaceY} ${spaceX}`}>
           <div className={`${cardHeight} ${cardWidth} flex-1`}>
             <img
               src={thumbnail}
@@ -56,7 +57,7 @@ function VideoCard({
                     : `inline lg:block text-xs md:text-sm font-semibold text-gray-600 mt-1.5`
                 }
               >
-                <span onClick={navigateToChannelPage}>YourChannelName</span>
+                <span onClick={navigateToChannelPage}>YourChannelName </span>
               </h2>
               <span className="text-xs md:text-sm text-gray-600 leading-3">
                 <BsDot
