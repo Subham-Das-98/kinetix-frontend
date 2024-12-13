@@ -1,5 +1,5 @@
 import React, {useState, useRef} from "react";
-import { CommentCard } from "./index.js";
+import { CommentCard } from "../index.js";
 import { FiChevronDown } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 

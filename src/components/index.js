@@ -1,13 +1,13 @@
 import BottomNav from "./navigation/BottomNav.jsx";
 import LeftNav from "./navigation/LeftNav.jsx";
 import Navbar from "./navigation/Navbar.jsx";
-import VideoList from "./VideoList.jsx";
-import FlexContainer from "./FlexContainer.jsx";
-import GridContainer from "./GridContainer.jsx";
-import VideoCard from "./VideoCard.jsx";
-import AddComment from "./AddComment.jsx";
-import CommentCard from "./CommentCard.jsx";
-import CommentList from "./CommentList.jsx";
+import VideoList from "./video/VideoList.jsx";
+import FlexContainer from "./container/FlexContainer.jsx";
+import GridContainer from "./container/GridContainer.jsx";
+import VideoCard from "./video/VideoCard.jsx";
+import AddComment from "./comment/AddComment.jsx";
+import CommentCard from "./comment/CommentCard.jsx";
+import CommentList from "./comment/CommentList.jsx";
 
 export {
   BottomNav,

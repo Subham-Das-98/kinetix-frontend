@@ -8,7 +8,7 @@ import {
   GridContainer,
   AddComment,
   CommentList,
-} from "../components";
+} from "../../components";
 import { BsDot } from "react-icons/bs";
 import { BiLike, BiDislike, BiSolidLike, BiSolidDislike } from "react-icons/bi";
 import { RiShareForwardLine, RiFlagLine } from "react-icons/ri";

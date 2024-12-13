@@ -1,5 +1,5 @@
 import React from "react";
-import { GridContainer, VideoList } from "../components";
+import { GridContainer, VideoList } from "../../components";
 
 function ChannelVideosPage() {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { VideoList, GridContainer } from "../components";
+import { VideoList, GridContainer } from "../../components";
 
 function HomePage() {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { VideoCard } from "./index.js";
+import { VideoCard } from "../index.js";
 
 function VideoList(props) {
   return (
