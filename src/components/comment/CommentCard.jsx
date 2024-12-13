@@ -1,5 +1,12 @@
 import React from "react";
-import { BiLike, BiDislike, BiSolidLike, BiSolidDislike, BiCommentDetail } from "react-icons/bi";
+import {
+  BiLike,
+  BiDislike,
+  BiSolidLike,
+  BiSolidDislike,
+  BiCommentDetail,
+} from "react-icons/bi";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 function CommentCard() {
   return (
@@ -17,7 +24,7 @@ function CommentCard() {
             <span className="font-medium">@username</span>{" "}
             <span className="text-gray-600">2 days ago</span>
           </div>
-          <div className="text-sm pr-4 md:pr-6 mt-0.5 lg:mt-1">
+          <div className="text-sm pr-4 mt-0.5 lg:mt-1">
             <p>
               Wow, this video is amazing! Your creativity and effort really
               shine through. The way you have presented the content is both
@@ -39,10 +46,17 @@ function CommentCard() {
               <span>24</span>
             </div>
             <div className="ml-9">
-              <button className="hidden lg:inline font-medium hover:bg-gray-200 px-3 py-1.5 rounded-full">Reply</button>
+              <button className="hidden lg:inline font-medium hover:bg-gray-200 px-3 py-1.5 rounded-full">
+                Reply
+              </button>
               <BiCommentDetail className="text-sm md:text-lg lg:hidden" />
             </div>
           </div>
+        </div>
+        <div>
+          <BsThreeDotsVertical
+            className="text-xl text-gray-600"
+          />
         </div>
       </div>
     </>

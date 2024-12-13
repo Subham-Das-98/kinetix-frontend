@@ -78,7 +78,7 @@ function ChannelPageNavBar() {
   );
 }
 
-function ChannelPage() {
+function ChannelLayout() {
   return (
     <>
       <main className="w-full">
@@ -91,4 +91,4 @@ function ChannelPage() {
   );
 }
 
-export default ChannelPage;
+export default ChannelLayout;

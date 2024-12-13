@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import {
   HomePage,
-  ChannelPage,
+  ChannelLayout,
   ChannelHomePage,
   ChannelVideosPage,
   WatchPage
@@ -21,7 +21,7 @@ const router = createBrowserRouter(
     <>
       <Route path="/" element={<Layout />}>
         <Route path="" element={<HomePage />} />
-        <Route path="/channel/:username" element={<ChannelPage />}>
+        <Route path="/channel/:username" element={<ChannelLayout />}>
           <Route path="/channel/:username" element={<ChannelHomePage />} />
           <Route
             path="/channel/:username/videos"

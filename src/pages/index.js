@@ -1,7 +1,7 @@
 import HomePage from "./home/HomePage";
-import ChannelPage from "./channel/ChannelPage";
+import ChannelLayout from "./channel/ChannelLayout";
 import ChannelHomePage from "./channel/ChannelHomePage";
 import ChannelVideosPage from "./channel/ChannelVideosPage";
 import WatchPage from "./watch/WatchPage";
 
-export { HomePage, ChannelPage, ChannelHomePage, ChannelVideosPage, WatchPage };
+export { HomePage, ChannelLayout, ChannelHomePage, ChannelVideosPage, WatchPage };
