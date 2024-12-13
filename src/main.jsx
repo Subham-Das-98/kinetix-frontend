@@ -13,7 +13,9 @@ import {
   ChannelLayout,
   ChannelHomePage,
   ChannelVideosPage,
-  WatchPage
+  ChannelCommunityPage,
+  WatchPage,
+  PostPage
 } from "./pages";
 
 const router = createBrowserRouter(
@@ -27,7 +29,12 @@ const router = createBrowserRouter(
             path="/channel/:username/videos"
             element={<ChannelVideosPage />}
           />
+          <Route
+            path="/channel/:username/community"
+            element={<ChannelCommunityPage />}
+          />
         </Route>
+        <Route path="/post/:id" element={<PostPage />} />
       </Route>
       <Route path="/watch" element={<WatchPage />} />
     </>

@@ -8,6 +8,8 @@ import VideoCard from "./video/VideoCard.jsx";
 import AddComment from "./comment/AddComment.jsx";
 import CommentCard from "./comment/CommentCard.jsx";
 import CommentList from "./comment/CommentList.jsx";
+import PostCard from "./post/PostCard.jsx";
+import PostList from "./post/PostList.jsx";
 
 export {
   BottomNav,
@@ -20,4 +22,6 @@ export {
   AddComment,
   CommentList,
   CommentCard,
+  PostCard,
+  PostList
 };

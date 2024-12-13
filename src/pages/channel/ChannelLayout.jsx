@@ -63,7 +63,7 @@ function ChannelPageNavBar() {
           <Link to="/">
             <li>Live</li>
           </Link>
-          <Link to="/">
+          <Link to="/channel/YourChannelName/community">
             <li>Community</li>
           </Link>
           <Link to="/">
