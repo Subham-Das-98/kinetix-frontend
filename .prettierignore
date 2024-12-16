@@ -1,0 +1,39 @@
+# Ignore node_modules
+node_modules/
+
+# Build output
+build/
+dist/
+
+# Vite cache
+.vite/
+
+# Coverage reports
+coverage/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Ignore JSON and lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ignore configuration files
+.vscode/
+.idea/
+*.config.js
+*.config.cjs
+*.config.mjs
+
+# Static assets
+public/
+
+# Miscellaneous
+.DS_Store
+Thumbs.db

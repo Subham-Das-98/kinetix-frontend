@@ -5,6 +5,9 @@ import ChannelVideosPage from "./channel/ChannelVideosPage";
 import ChannelCommunityPage from "./channel/ChannelCommunityPage";
 import WatchPage from "./watch/WatchPage";
 import PostPage from "./post/PostPage";
+import StudioLayout from "./studio/StudioLayout";
+import StudioDashboardPage from "./studio/StudioDashboardPage";
+import StudioContentPage from "./studio/StudioContentPage";
 
 export {
   HomePage,
@@ -13,5 +16,8 @@ export {
   ChannelVideosPage,
   ChannelCommunityPage,
   WatchPage,
-  PostPage
+  PostPage,
+  StudioLayout,
+  StudioDashboardPage,
+  StudioContentPage,
 };

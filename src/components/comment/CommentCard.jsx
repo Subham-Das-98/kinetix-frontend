@@ -49,14 +49,14 @@ function CommentCard() {
               <button className="hidden lg:inline font-medium hover:bg-gray-200 px-3 py-1.5 rounded-full">
                 Reply
               </button>
+              <button className="p-1.5 rounded-full hover:bg-gray-200">
               <BiCommentDetail className="text-sm md:text-lg lg:hidden" />
+              </button>
             </div>
           </div>
         </div>
         <div>
-          <BsThreeDotsVertical
-            className="text-xl text-gray-600"
-          />
+          <BsThreeDotsVertical className="text-xl text-gray-600" />
         </div>
       </div>
     </>

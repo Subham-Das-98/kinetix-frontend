@@ -30,7 +30,7 @@ function BottomNav() {
               </Link>
             </li>
             <li>
-              <Link to={"/channel/:username/studio"}>
+              <Link to={"/channel/YourChannelName/studio"}>
                 <div>
                   <AiOutlineVideoCameraAdd className="text-2xl mx-auto" />
                   <span>Studio</span>
