@@ -24,7 +24,7 @@ function LeftNav() {
     <>
       <aside>
         <nav className="sticky top-[72px]">
-          <div className="hidden md:block md:w-[200px] lg:w-[236px] divide-y pb-4 ml-3 max-h-[calc(100vh-72px)] overflow-y-scroll">
+          <div className="hidden md:block md:w-[200px] lg:w-[236px] divide-y pb-4 ml-3 max-h-[calc(100vh-72px)] overflow-y-scroll scrollbar-thin scrollbar-on-hover">
             <div className="flex flex-col pb-3">
               <NavLink to={"/"}>
                 <div className="flex items-center gap-x-4 px-5 py-2 hover:bg-slate-200 rounded-lg">
