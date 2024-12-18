@@ -99,7 +99,7 @@ function ChannelInfoAndStats() {
 function SocialActions() {
   return (
     <>
-      <div className="overflow-x-auto mt-3 md:mt-4 mr-3 md:mr-0">
+      <div className="overflow-x-auto no-scrollbar mt-3 md:mt-4 mr-3 md:mr-0">
         <ul className="flex items-center gap-x-1.5 md:gap-x-2.5 ">
           <li className="bg-gray-100 rounded-full flex-shrink-0">
             <button className="px-3.5 py-1">

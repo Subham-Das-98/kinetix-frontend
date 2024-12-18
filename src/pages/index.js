@@ -8,6 +8,7 @@ import PostPage from "./post/PostPage";
 import StudioLayout from "./studio/StudioLayout";
 import StudioDashboardPage from "./studio/StudioDashboardPage";
 import StudioContentPage from "./studio/StudioContentPage";
+import SignupPage from "./signup/SignupPage";
 
 export {
   HomePage,
@@ -20,4 +21,5 @@ export {
   StudioLayout,
   StudioDashboardPage,
   StudioContentPage,
+  SignupPage,
 };

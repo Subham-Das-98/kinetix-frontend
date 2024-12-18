@@ -55,6 +55,7 @@ function LoginModal({ closeModal, isModalOpen }) {
                 <NavLink
                   to="/signup"
                   className={"text-blue-500 underline underline-offset-1"}
+                  onClick={closeModal}
                 >
                   Create account.
                 </NavLink>

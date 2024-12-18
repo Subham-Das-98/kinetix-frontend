@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { BsDot } from "react-icons/bs";
 
 function Banner() {
@@ -50,28 +50,94 @@ function InfoAndStats() {
 }
 
 function ChannelPageNavBar() {
+  const location = useLocation();
   return (
     <>
-      <div className="sticky top-[72px] mt-5 mx-2.5 lg:mx-0 bg-white before:absolute before:bottom-0 before:w-full before:h-[1px] before:bg-slate-300">
-        <ul className="flex gap-5 lg:gap-8 font-semibold text-gray-500 overflow-x-auto">
-          <Link to="/channel/YourChannelName">
-            <li>Home</li>
-          </Link>
-          <Link to="/channel/YourChannelName/videos">
-            <li>Videos</li>
-          </Link>
-          <Link to="/">
-            <li>Live</li>
-          </Link>
-          <Link to="/channel/YourChannelName/community">
-            <li>Community</li>
-          </Link>
-          <Link to="/">
-            <li>Playlists</li>
-          </Link>
-          <Link to="/">
-            <li>About</li>
-          </Link>
+      <div className="sticky top-[72px] mt-5 mx-2.5 lg:mx-0 bg-white border-b">
+        <ul className="flex gap-5 lg:gap-x-7 font-semibold text-gray-500 overflow-x-auto no-scrollbar">
+          <li>
+            <NavLink
+              to="/channel/YourChannelName"
+              className={(isActive) =>
+                isActive && location.pathname === "/channel/YourChannelName"
+                  ? "block border-b-2 border-b-gray-900 text-black"
+                  : "block hover:border-b-2 hover:border-b-gray-400"
+              }
+              end
+            >
+              <div className="md:py-1 lg:py-2">Home</div>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/channel/YourChannelName/videos"
+              className={(isActive) =>
+                isActive &&
+                location.pathname === "/channel/YourChannelName/videos"
+                  ? "block border-b-2 border-b-gray-900 text-black"
+                  : "block hover:border-b-2 hover:border-b-gray-400"
+              }
+              end
+            >
+              <div className="md:py-1 lg:py-2">Videos</div>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/channel/YourChannelName/live"
+              className={(isActive) =>
+                isActive &&
+                location.pathname === "/channel/YourChannelName/live"
+                  ? "block border-b-2 border-b-gray-900 text-black"
+                  : "block hover:border-b-2 hover:border-b-gray-400"
+              }
+              end
+            >
+              <div className="md:py-1 lg:py-2">Live</div>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/channel/YourChannelName/community"
+              className={(isActive) =>
+                isActive &&
+                location.pathname === "/channel/YourChannelName/community"
+                  ? "block border-b-2 border-b-gray-900 text-black"
+                  : "block hover:border-b-2 hover:border-b-gray-400"
+              }
+              end
+            >
+              <div className="md:py-1 lg:py-2">Community</div>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/channel/YourChannelName/playlist"
+              className={(isActive) =>
+                isActive &&
+                location.pathname === "/channel/YourChannelName/playlist"
+                  ? "block border-b-2 border-b-gray-900 text-black"
+                  : "block hover:border-b-2 hover:border-b-gray-400"
+              }
+              end
+            >
+              <div className="md:py-1 lg:py-2">Playlists</div>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/channel/YourChannelName/about"
+              className={(isActive) =>
+                isActive &&
+                location.pathname === "/channel/YourChannelName/about"
+                  ? "block border-b-2 border-b-gray-900 text-black"
+                  : "block hover:border-b-2 hover:border-b-gray-400"
+              }
+              end
+            >
+              <div className="md:py-1 lg:py-2">About</div>
+            </NavLink>
+          </li>
         </ul>
       </div>
     </>

@@ -18,7 +18,8 @@ import {
   PostPage,
   StudioLayout,
   StudioDashboardPage,
-  StudioContentPage
+  StudioContentPage,
+  SignupPage
 } from "./pages";
 
 const router = createBrowserRouter(
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
           />
         </Route>
         <Route path="/post/:id" element={<PostPage />} />
+        <Route path="/signup" element={<SignupPage />} />
       </Route>
       <Route path="/watch" element={<WatchPage />} />
       <Route path="/channel/:username/studio" element={<StudioLayout />}>
