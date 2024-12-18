@@ -10,6 +10,7 @@ import CommentCard from "./comment/CommentCard.jsx";
 import CommentList from "./comment/CommentList.jsx";
 import PostCard from "./post/PostCard.jsx";
 import PostList from "./post/PostList.jsx";
+import LoginModal from "./modal/LoginModal.jsx";
 
 export {
   BottomNav,
@@ -23,5 +24,6 @@ export {
   CommentList,
   CommentCard,
   PostCard,
-  PostList
+  PostList,
+  LoginModal,
 };

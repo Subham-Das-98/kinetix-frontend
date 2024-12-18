@@ -266,7 +266,7 @@ function UploadVideoModal({ closeModal, isModalOpen }) {
               </div>
 
               <div>
-                <button className="px-6 py-2 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-full mx-auto block mt-5">
+                <button className="px-6 py-2 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-full mx-auto block mt-5" name="uploadBtn">
                   Upload
                 </button>
               </div>

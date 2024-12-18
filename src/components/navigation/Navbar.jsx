@@ -6,7 +6,7 @@ import { BsBell } from "react-icons/bs";
 import { CiUser } from "react-icons/ci";
 import { Link } from "react-router-dom";
 
-function Navbar() {
+function Navbar({openModal}) {
   return (
     <>
       <header className="sticky top-0">
@@ -14,11 +14,11 @@ function Navbar() {
           <div className="flex items-center justify-between">
             <div className="">
               <Link to="/">
-              <img src="/img/logo-light.png" alt="logo" className="w-32" />
+                <img src="/img/logo-light.png" alt="logo" className="w-32" />
               </Link>
             </div>
 
-            <div className="hidden md:flex gap-x-4 items-center flex-1 md:max-w-md lg:max-w-xl">
+            <div className="hidden md:flex gap-x-4 items-center flex-1 md:max-w-96 lg:max-w-xl">
               <form
                 action=""
                 className="w-full"
@@ -43,12 +43,22 @@ function Navbar() {
               </div>
             </div>
 
-            <div className="flex gap-x-2.5 sm:gap-x-4 md:gap-x-6 lg:gap-x-8 mr-4 sm:mr-5 md:mr-6 lg:mr-8">
-              <CiSearch className="cursor-pointer text-2xl md:hidden" />
-              <MdMic className="cursor-pointer text-2xl md:hidden" />
-              <AiOutlineVideoCameraAdd className="hidden md:block cursor-pointer text-2xl" />
-              <BsBell className="cursor-pointer text-2xl" />
-              <CiUser className="hidden md:block cursor-pointer text-2xl" />
+            <div className="flex gap-x-2.5 md:gap-x-4 lg:gap-x-6 mr-4 sm:mr-5 md:mr-6 lg:mr-8">
+              <button className="md:hidden">
+                <CiSearch className="cursor-pointer text-2xl" />
+              </button>
+              <button className="md:hidden">
+                <MdMic className="cursor-pointer text-2xl" />
+              </button>
+              <button className="hidden md:block">
+                <AiOutlineVideoCameraAdd className="cursor-pointer text-lg md:text-xl lg:text-2xl" />
+              </button>
+              <button className="border rounded-full px-2 py-1 md:px-3 md:py-1.5 text-blue-600 hover:bg-blue-100" onClick={openModal}>
+                <div className="flex items-center gap-x-1">
+                  <CiUser className="inline cursor-pointer text-lg md:text-xl lg:text-2xl" />
+                  <span className="text-sm md:text-base font-medium">Sign in</span>
+                </div>
+              </button>
             </div>
           </div>
         </nav>
