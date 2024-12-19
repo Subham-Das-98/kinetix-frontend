@@ -19,8 +19,11 @@ import {
   StudioLayout,
   StudioDashboardPage,
   StudioContentPage,
-  SignupPage
+  SignupPage,
 } from "./pages";
+
+import store from "./app/store.js";
+import { Provider } from "react-redux";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,7 +41,7 @@ const router = createBrowserRouter(
             element={<ChannelCommunityPage />}
           />
         </Route>
-        <Route path="/post/:id" element={<PostPage />} />
+        <Route path="/post/:username/p_id/:id" element={<PostPage />} />
         <Route path="/signup" element={<SignupPage />} />
       </Route>
       <Route path="/watch" element={<WatchPage />} />
@@ -58,6 +61,8 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>
 );

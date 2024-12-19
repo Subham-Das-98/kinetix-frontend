@@ -28,6 +28,7 @@ function Navbar({openModal}) {
                   <input
                     type="text"
                     className="outline-none border rounded-l-full w-full h-10 px-4 focus:border-blue-600"
+                    name="search"
                     placeholder="Search"
                   />
                   <button

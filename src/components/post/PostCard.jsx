@@ -39,7 +39,7 @@ function PostCard() {
           </div>
         </div>
         <div className="px-3 mt-0.5 md:mt-1 lg:mt-2">
-          <NavLink to="/post/123">
+          <NavLink to="/post/YourChannelName/p_id/123">
             <p className="lg:pr-4">
               Keep moving forward. Even small steps add up to big results.
               Progress is progress, no matter how slow—just don't stop. You have
@@ -48,7 +48,7 @@ function PostCard() {
           </NavLink>
         </div>
         <div className="px-3 md:px-9 lg:px-14 mt-5">
-          <NavLink to="/post/123">
+          <NavLink to="/post/YourChannelName/p_id/123">
             <img
               src="/temp/test-post.png"
               alt=""
@@ -76,7 +76,7 @@ function PostCard() {
               </button>
             </li>
             <li className="flex items-center">
-              <NavLink to="/post/123">
+              <NavLink to="/post/YourChannelName/p_id/123">
                 <button className="py-2 px-4 rounded-full hover:bg-gray-200">
                   <BiCommentDetail className="md:text-xl inline lg:text-2xl" />
                   <span className="mx-1 font-medium text-xs md:text-sm">8</span>
