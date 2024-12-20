@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { NavLink } from "react-router-dom";
 import {
   Navbar,
   LeftNav,
@@ -14,7 +15,12 @@ import { BiLike, BiDislike, BiSolidLike, BiSolidDislike } from "react-icons/bi";
 import { RiShareForwardLine, RiFlagLine } from "react-icons/ri";
 import { LiaDownloadSolid } from "react-icons/lia";
 import { MdSort } from "react-icons/md";
-import { useGetVideosByRecommendationQuery } from "../../api/videoApi";
+import {
+  useGetVideoByIdQuery,
+  useGetVideosByRecommendationQuery,
+} from "../../api/videoApi";
+import { useGetChannelInfoAndStatsQuery } from "../../api/userApi";
+import { useParams } from "react-router-dom";
 
 function VideoPlayback() {
   return (
@@ -24,7 +30,7 @@ function VideoPlayback() {
   );
 }
 
-function VideoInfoAndStats({ children }) {
+function VideoInfoAndStats({ title = "", children }) {
   const [showDesc, setShowDesc] = useState(false);
   const descRef = useRef();
   function toggleDescription() {
@@ -37,7 +43,7 @@ function VideoInfoAndStats({ children }) {
       <div>
         <div>
           <h1 className="text-lg md:text-xl lg:text-2xl font-semibold">
-            Your video title for testing application
+            {title}
           </h1>
         </div>
         <div>{children}</div>
@@ -66,24 +72,30 @@ function VideoInfoAndStats({ children }) {
   );
 }
 
-function ChannelInfoAndStats() {
+function ChannelInfoAndStats({
+  channel = "",
+  profile = "",
+  subscribersCount = "",
+}) {
   return (
     <>
       <div className="flex items-center gap-x-5 mr-3 md:mr-0 mt-3">
         <div>
-          <img
-            src="/temp/test-profile.png"
-            alt=""
-            className="w-11 aspect-square object-cover rounded-full"
-          />
+          <NavLink to={`/channel/${channel}`}>
+            <img
+              src={profile}
+              alt=""
+              className="w-11 aspect-square object-cover object-center rounded-full"
+            />
+          </NavLink>
         </div>
         <div className="flex flex-1">
           <div className="mr-auto">
-            <h1 className="sm:text-sm md:text-base lg:text-lg font-medium">
-              YourChannelName
-            </h1>
+            <div className="sm:text-sm md:text-base lg:text-lg font-medium">
+              <NavLink to={`/channel/${channel}`}>{channel}</NavLink>
+            </div>
             <span className="text-xs md:text-sm text-gray-500">
-              500K subscribers
+              {subscribersCount} subscribers
             </span>
           </div>
           <div>
@@ -170,40 +182,66 @@ function RecommendVideoSection({ children }) {
 }
 
 function WatchPage() {
-  const { data: videos, error, isLoading } = useGetVideosByRecommendationQuery();
+  const { username, id } = useParams();
+  const {
+    data: video,
+    videoError,
+    videoIsLoading,
+  } = useGetVideoByIdQuery({ username, id });
+  const { data: channel } = useGetChannelInfoAndStatsQuery(username);
+  const {
+    data: videos,
+    videosError,
+    videosIsLoading,
+  } = useGetVideosByRecommendationQuery();
+
+  // scroll to top on every render
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  });
+
   return (
     <>
       <Navbar />
       <main className="max-w-screen-2xl lg:mx-auto mb-5 md:mb-9 lg:mb-16">
-        <FlexContainer
-          className={"flex-col md:flex-row"}
-          gapX="md:gap-x-5 lg:gap-x-10"
-        >
-          <VideoSection>
-            <VideoInfoAndStats>
-              <ChannelInfoAndStats />
-              <SocialActions />
-            </VideoInfoAndStats>
-            <CommentSection>
-              <AddComment />
-              <CommentList />
-            </CommentSection>
-          </VideoSection>
-          <RecommendVideoSection>
-            {isLoading && <div>loading...</div>}
-            {error && <div>ERROR::{error.error}</div>}
-            {videos && <VideoList
-              videos={videos.data}
-              cardType="flex"
-              hideProfile={true}
-              spaceX="space-x-3"
-              spaceY="space-y-0"
-              fontSize="text-sm lg:text-base"
-              lineHeight="leading-4 lg:leading-5"
-              fontWeight="font-medium"
-            />}
-          </RecommendVideoSection>
-        </FlexContainer>
+        <video src={video?.data.videoFile} controls width={"250px"}></video>
+        {!videoIsLoading && video && (
+          <FlexContainer
+            className={"flex-col md:flex-row"}
+            gapX="md:gap-x-5 lg:gap-x-10"
+          >
+            <VideoSection>
+              <VideoInfoAndStats title={video?.data.title}>
+                <ChannelInfoAndStats
+                  channel={channel?.data.username}
+                  profile={channel?.data.avatar}
+                  subscribersCount={channel?.data.subscribersCount}
+                />
+                <SocialActions />
+              </VideoInfoAndStats>
+              <CommentSection>
+                <AddComment />
+                <CommentList />
+              </CommentSection>
+            </VideoSection>
+            <RecommendVideoSection>
+              {videosIsLoading && <div>loading...</div>}
+              {videosError && <div>ERROR::{videosError.error}</div>}
+              {videos && (
+                <VideoList
+                  videos={videos.data}
+                  cardType="flex"
+                  hideProfile={true}
+                  spaceX="space-x-3"
+                  spaceY="space-y-0"
+                  fontSize="text-sm lg:text-base"
+                  lineHeight="leading-4 lg:leading-5"
+                  fontWeight="font-medium"
+                />
+              )}
+            </RecommendVideoSection>
+          </FlexContainer>
+        )}
       </main>
     </>
   );

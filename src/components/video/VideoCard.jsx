@@ -4,6 +4,7 @@ import { BsDot } from "react-icons/bs";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 function VideoCard({
+  id="",
   thumbnail = "",
   profile = "",
   title="",
@@ -32,7 +33,7 @@ function VideoCard({
   return (
     <>
       <div>
-        <NavLink to="/watch" className={`${cardType} ${spaceY} ${spaceX}`}>
+        <NavLink to={`/watch/${channelname}/v_id/${id}`} className={`${cardType} ${spaceY} ${spaceX}`}>
           <div className={`${cardHeight} ${cardWidth} flex-1`}>
             <img
               src={thumbnail}

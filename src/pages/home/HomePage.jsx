@@ -11,15 +11,6 @@ function HomePage() {
     isLoading,
   } = useGetVideosByRecommendationQuery();
 
-  // const { data: video } = useGetVideoByIdQuery({
-  //   username: "two",
-  //   id: "67482a74ecc0cc238c3dbf7a",
-  // });
-
-  useEffect(() => {
-    console.log(videos);
-  }, [videos, error, isLoading]);
-
   return (
     <>
       <main className="w-full">

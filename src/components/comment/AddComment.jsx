@@ -8,7 +8,7 @@ function AddComment() {
       <div className="flex items-center gap-x-2 bg-gray-100 p-3 rounded-xl">
         <div className="p-0.5">
           <img
-            src="temp/test-avatar.jpg"
+            src="/temp/test-avatar.jpg"
             alt=""
             className="w-8 aspect-square object-cover rounded-full"
           />

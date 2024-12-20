@@ -10,6 +10,7 @@ function VideoList({ videos, ...props }) {
       {videos?.map((video) => (
         <VideoCard
           key={video?._id}
+          id={video?._id}
           thumbnail={video?.thumbnail || "/temp/default-thumbnail.png"}
           profile={video?.owner?.avatar || "/temp/default-avatar.png"}
           title={video.title}

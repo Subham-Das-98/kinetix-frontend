@@ -44,7 +44,7 @@ const router = createBrowserRouter(
         <Route path="/post/:username/p_id/:id" element={<PostPage />} />
         <Route path="/signup" element={<SignupPage />} />
       </Route>
-      <Route path="/watch" element={<WatchPage />} />
+      <Route path="/watch/:username/v_id/:id" element={<WatchPage />} />
       <Route path="/channel/:username/studio" element={<StudioLayout />}>
         <Route
           path="/channel/:username/studio"

@@ -14,7 +14,7 @@ function CommentCard() {
       <div className="flex gap-1 lg:gap-2">
         <div className="p-0.5">
           <img
-            src="temp/test-avatar-2.png"
+            src="/temp/test-avatar-2.png"
             alt=""
             className="w-8 aspect-square object-cover rounded-full"
           />
