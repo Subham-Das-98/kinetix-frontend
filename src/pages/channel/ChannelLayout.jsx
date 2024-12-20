@@ -1,42 +1,49 @@
-import React from "react";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import { BsDot } from "react-icons/bs";
+import { useGetChannelInfoAndStatsQuery } from "../../api/userApi";
 
-function Banner() {
+function Banner({ coverImage }) {
   return (
     <>
       <div className="w-auto h-24 md:h-32 lg:h-40 bg-slate-600 md:mr-3">
         <img
-          src="/temp/test-banner.jpg"
+          src={coverImage}
           alt=""
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-center"
         />
       </div>
     </>
   );
 }
 
-function InfoAndStats() {
+function InfoAndStats({
+  profile = "",
+  channelName = "",
+  subscribersCount = "",
+  videosCount = "",
+  fullName = "",
+}) {
   return (
     <>
       <div className="flex gap-5 mt-3 lg:mt-5 mx-2.5 lg:mx-0">
         <div>
           <img
-            src="/temp/test-profile.png"
+            src={profile}
             alt=""
-            className="w-20 md:w-28 lg:w-36 aspect-square object-cover rounded-full"
+            className="w-20 md:w-28 lg:w-36 aspect-square object-cover object-center rounded-full"
           />
         </div>
         <div>
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">
-            YourChannelName
+            {channelName}
           </h1>
           <div className="text-sm md:text-base lg:text-lg text-gray-500">
-            <span className="block lg:inline">@FullName</span>
+            <span className="block lg:inline">@{fullName}</span>
             <BsDot className="hidden lg:inline text-xs" />
-            <span>500K subscribers</span>
+            <span>{subscribersCount} subscribers</span>
             <BsDot className="inline text-xs" />
-            <span>99 videos</span>
+            <span>{videosCount} videos</span>
           </div>
           <div className="mt-2">
             <button className="bg-gray-900 hover:bg-gray-800 text-white font-semibold text-sm px-2.5 py-1 lg:text-base lg:px-3.5 lg:py-1.5 rounded-full">
@@ -51,15 +58,16 @@ function InfoAndStats() {
 
 function ChannelPageNavBar() {
   const location = useLocation();
+  const { username } = useParams();
   return (
     <>
       <div className="sticky top-[72px] mt-5 mx-2.5 lg:mx-0 bg-white border-b">
         <ul className="flex gap-5 lg:gap-x-7 font-semibold text-gray-500 overflow-x-auto no-scrollbar">
           <li>
             <NavLink
-              to="/channel/YourChannelName"
+              to={`/channel/${username}`}
               className={(isActive) =>
-                isActive && location.pathname === "/channel/YourChannelName"
+                isActive && location.pathname === `/channel/${username}`
                   ? "block border-b-2 border-b-gray-900 text-black"
                   : "block hover:border-b-2 hover:border-b-gray-400"
               }
@@ -70,10 +78,9 @@ function ChannelPageNavBar() {
           </li>
           <li>
             <NavLink
-              to="/channel/YourChannelName/videos"
+              to={`/channel/${username}/videos`}
               className={(isActive) =>
-                isActive &&
-                location.pathname === "/channel/YourChannelName/videos"
+                isActive && location.pathname === `/channel/${username}/videos`
                   ? "block border-b-2 border-b-gray-900 text-black"
                   : "block hover:border-b-2 hover:border-b-gray-400"
               }
@@ -84,10 +91,9 @@ function ChannelPageNavBar() {
           </li>
           <li>
             <NavLink
-              to="/channel/YourChannelName/live"
+              to={`/channel/${username}/live`}
               className={(isActive) =>
-                isActive &&
-                location.pathname === "/channel/YourChannelName/live"
+                isActive && location.pathname === `/channel/${username}/live`
                   ? "block border-b-2 border-b-gray-900 text-black"
                   : "block hover:border-b-2 hover:border-b-gray-400"
               }
@@ -98,10 +104,10 @@ function ChannelPageNavBar() {
           </li>
           <li>
             <NavLink
-              to="/channel/YourChannelName/community"
+              to={`/channel/${username}/community`}
               className={(isActive) =>
                 isActive &&
-                location.pathname === "/channel/YourChannelName/community"
+                location.pathname === `/channel/${username}/community`
                   ? "block border-b-2 border-b-gray-900 text-black"
                   : "block hover:border-b-2 hover:border-b-gray-400"
               }
@@ -112,10 +118,10 @@ function ChannelPageNavBar() {
           </li>
           <li>
             <NavLink
-              to="/channel/YourChannelName/playlist"
+              to={`/channel/${username}/playlist`}
               className={(isActive) =>
                 isActive &&
-                location.pathname === "/channel/YourChannelName/playlist"
+                location.pathname === `/channel/${username}/playlist`
                   ? "block border-b-2 border-b-gray-900 text-black"
                   : "block hover:border-b-2 hover:border-b-gray-400"
               }
@@ -126,10 +132,9 @@ function ChannelPageNavBar() {
           </li>
           <li>
             <NavLink
-              to="/channel/YourChannelName/about"
+              to={`/channel/${username}/about`}
               className={(isActive) =>
-                isActive &&
-                location.pathname === "/channel/YourChannelName/about"
+                isActive && location.pathname === `/channel/${username}/about`
                   ? "block border-b-2 border-b-gray-900 text-black"
                   : "block hover:border-b-2 hover:border-b-gray-400"
               }
@@ -145,11 +150,33 @@ function ChannelPageNavBar() {
 }
 
 function ChannelLayout() {
+  const { username } = useParams();
+  const { data: channel } = useGetChannelInfoAndStatsQuery(username);
+  useEffect(() => {
+    // console.log(channel);
+  }, [channel]);
+
+  if (!channel) {
+    return (
+      <>
+        <div>channel not found</div>
+      </>
+    );
+  }
+
   return (
     <>
       <main className="w-full">
-        <Banner />
-        <InfoAndStats />
+        <Banner
+          coverImage={channel?.data.coverImage || "/temp/default-banner.png"}
+        />
+        <InfoAndStats
+          profile={channel?.data.avatar || "/temp/default-avatar.png"}
+          channelName={channel?.data.username || null}
+          subscribersCount={channel?.data.subscribersCount}
+          videosCount="9"
+          fullName={channel?.data.fullName}
+        />
         <ChannelPageNavBar />
         <Outlet />
       </main>

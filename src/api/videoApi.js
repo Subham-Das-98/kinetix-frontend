@@ -12,9 +12,15 @@ export const videoApi = createApi({
     getVideoById: builder.query({
       query: ({ username, id }) => `/watch/${username}/v_id/${id}`,
     }),
+    getAllVideosByChannelName: builder.query({
+      query: (username) => `/channel/${username}/videos`,
+    }),
   }),
 });
 
-export const { useGetVideosByRecommendationQuery, useGetVideoByIdQuery } =
-  videoApi;
+export const {
+  useGetVideosByRecommendationQuery,
+  useGetVideoByIdQuery,
+  useGetAllVideosByChannelNameQuery,
+} = videoApi;
 export default videoApi;

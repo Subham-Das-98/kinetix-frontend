@@ -14,6 +14,7 @@ import { BiLike, BiDislike, BiSolidLike, BiSolidDislike } from "react-icons/bi";
 import { RiShareForwardLine, RiFlagLine } from "react-icons/ri";
 import { LiaDownloadSolid } from "react-icons/lia";
 import { MdSort } from "react-icons/md";
+import { useGetVideosByRecommendationQuery } from "../../api/videoApi";
 
 function VideoPlayback() {
   return (
@@ -169,6 +170,7 @@ function RecommendVideoSection({ children }) {
 }
 
 function WatchPage() {
+  const { data: videos, error, isLoading } = useGetVideosByRecommendationQuery();
   return (
     <>
       <Navbar />
@@ -188,7 +190,10 @@ function WatchPage() {
             </CommentSection>
           </VideoSection>
           <RecommendVideoSection>
-            <VideoList
+            {isLoading && <div>loading...</div>}
+            {error && <div>ERROR::{error.error}</div>}
+            {videos && <VideoList
+              videos={videos.data}
               cardType="flex"
               hideProfile={true}
               spaceX="space-x-3"
@@ -196,7 +201,7 @@ function WatchPage() {
               fontSize="text-sm lg:text-base"
               lineHeight="leading-4 lg:leading-5"
               fontWeight="font-medium"
-            />
+            />}
           </RecommendVideoSection>
         </FlexContainer>
       </main>

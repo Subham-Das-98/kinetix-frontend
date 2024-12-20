@@ -4,8 +4,13 @@ import { BsDot } from "react-icons/bs";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 function VideoCard({
-  thumbnail = "/temp/test-thumb.webp",
-  profile = "/temp/test-profile.png",
+  thumbnail = "",
+  profile = "",
+  title="",
+  channelname="",
+  views="0",
+  duration="00:00",
+  createdAt="4 days ago",
   hideProfile = false,
   hideChannelName = false,
   cardType = "block",
@@ -21,7 +26,7 @@ function VideoCard({
 
   function navigateToChannelPage(e) {
     e.preventDefault();
-    navigate("/channel/YourChannelName");
+    navigate(`/channel/${channelname}`);
   }
 
   return (
@@ -48,7 +53,7 @@ function VideoCard({
             </div>
             <div className="flex-grow">
               <h1 className={`${fontSize} ${fontWeight} ${lineHeight}`}>
-                Your video title for testing application.
+                {title}
               </h1>
               <h2
                 className={
@@ -57,7 +62,7 @@ function VideoCard({
                     : `inline lg:block text-xs md:text-sm font-semibold text-gray-600 mt-1.5`
                 }
               >
-                <span onClick={navigateToChannelPage}>YourChannelName </span>
+                <span onClick={navigateToChannelPage}>{channelname} </span>
               </h2>
               <span className="text-xs md:text-sm text-gray-600 leading-3">
                 <BsDot
@@ -67,9 +72,9 @@ function VideoCard({
                       : `inline lg:hidden text-xs text-gray-600`
                   }
                 />
-                <span>50K views</span>
+                <span>{views} views</span>
                 <BsDot className="inline text-xs text-gray-600" />
-                <span>4 days ago</span>
+                <span>{createdAt}</span>
               </span>
             </div>
             <div>
