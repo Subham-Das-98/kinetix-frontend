@@ -22,10 +22,17 @@ import {
 import { useGetChannelInfoAndStatsQuery } from "../../api/userApi";
 import { useParams } from "react-router-dom";
 
-function VideoPlayback() {
+function VideoPlayer({ video }) {
   return (
     <>
-      <div></div>
+      <div className="w-full aspect-video mb-2">
+        <video
+          src={video?.data.videoFile}
+          controls
+          autoPlay
+          className="w-full h-full"
+        ></video>
+      </div>
     </>
   );
 }
@@ -94,9 +101,9 @@ function ChannelInfoAndStats({
             <div className="sm:text-sm md:text-base lg:text-lg font-medium">
               <NavLink to={`/channel/${channel}`}>{channel}</NavLink>
             </div>
-            <span className="text-xs md:text-sm text-gray-500">
+            <div className="text-xs md:text-sm -mt-1 text-gray-500">
               {subscribersCount} subscribers
-            </span>
+            </div>
           </div>
           <div>
             <button className="bg-gray-900 hover:bg-gray-800 text-white font-medium text-sm px-2.5 py-1.5 lg:text-base lg:px-3.5 rounded-full">
@@ -183,16 +190,19 @@ function RecommendVideoSection({ children }) {
 
 function WatchPage() {
   const { username, id } = useParams();
+
   const {
     data: video,
-    videoError,
-    videoIsLoading,
+    error: videoError,
+    isLoading: videoIsLoading,
   } = useGetVideoByIdQuery({ username, id });
+
   const { data: channel } = useGetChannelInfoAndStatsQuery(username);
+
   const {
     data: videos,
-    videosError,
-    videosIsLoading,
+    error: videosError,
+    isLoading: videosIsLoading,
   } = useGetVideosByRecommendationQuery();
 
   // scroll to top on every render
@@ -204,13 +214,15 @@ function WatchPage() {
     <>
       <Navbar />
       <main className="max-w-screen-2xl lg:mx-auto mb-5 md:mb-9 lg:mb-16">
-        <video src={video?.data.videoFile} controls width={"250px"}></video>
+        {videoIsLoading && <div>loading...</div>}
+        {videoError && <div>ERROR::{videoError.error}</div>}
         {!videoIsLoading && video && (
           <FlexContainer
             className={"flex-col md:flex-row"}
             gapX="md:gap-x-5 lg:gap-x-10"
           >
             <VideoSection>
+              <VideoPlayer video={video} />
               <VideoInfoAndStats title={video?.data.title}>
                 <ChannelInfoAndStats
                   channel={channel?.data.username}

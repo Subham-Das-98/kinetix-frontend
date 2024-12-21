@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 function Navbar({openModal}) {
   return (
     <>
-      <header className="sticky top-0">
+      <header className="sticky top-0 z-50">
         <nav className="bg-white">
           <div className="flex items-center justify-between">
             <div className="">
