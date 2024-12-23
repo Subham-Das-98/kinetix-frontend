@@ -29,8 +29,9 @@ function VideoPlayer({ video }) {
         <video
           src={video?.data.videoFile}
           controls
+          controlsList="nodownload"
           autoPlay
-          className="w-full h-full"
+          className="w-full h-full rounded-xl"
         ></video>
       </div>
     </>
