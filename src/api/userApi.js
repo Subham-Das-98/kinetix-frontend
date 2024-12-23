@@ -6,6 +6,13 @@ export const userApi = createApi({
     baseUrl: `${import.meta.env.VITE_SERVER_API_URI}/api/v1`,
   }),
   endpoints: (builder) => ({
+    createUser: builder.mutation({
+      query: (formData) => ({
+        url: "/user/register",
+        method: "POST",
+        body: formData,
+      })
+    }),
     getChannelInfoAndStats: builder.query({
       query: (username) => `/channel/${username}`,
     }),
@@ -13,6 +20,7 @@ export const userApi = createApi({
 });
 
 export const {
-  useGetChannelInfoAndStatsQuery
+  useGetChannelInfoAndStatsQuery,
+  useCreateUserMutation,
 } = userApi;
 export default userApi;

@@ -25,14 +25,14 @@ import { useParams } from "react-router-dom";
 function VideoPlayer({ video }) {
   return (
     <>
-      <div className="w-full aspect-video mb-2">
+      <div className="w-full aspect-video mb-2 bg-black rounded-xl overflow-hidden">
         <video
           src={video?.data.videoFile}
           controls
           controlsList="nodownload"
           autoPlay
-          className="w-full h-full rounded-xl"
-        ></video>
+          className="w-full h-full"
+        />
       </div>
     </>
   );
