@@ -25,7 +25,7 @@ import { useParams } from "react-router-dom";
 function VideoPlayer({ video }) {
   return (
     <>
-      <div className="w-full aspect-video mb-2 bg-black rounded-xl overflow-hidden">
+      <div className="aspect-video mb-2 mr-3 md:mr-0 bg-black rounded-xl overflow-hidden">
         <video
           src={video?.data.videoFile}
           controls
