@@ -11,7 +11,15 @@ export const userApi = createApi({
         url: "/user/register",
         method: "POST",
         body: formData,
-      })
+      }),
+    }),
+    loginUser: builder.mutation({
+      query: (formData) => ({
+        url: "/user/login",
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      }),
     }),
     getChannelInfoAndStats: builder.query({
       query: (username) => `/channel/${username}`,
@@ -22,5 +30,6 @@ export const userApi = createApi({
 export const {
   useGetChannelInfoAndStatsQuery,
   useCreateUserMutation,
+  useLoginUserMutation,
 } = userApi;
 export default userApi;

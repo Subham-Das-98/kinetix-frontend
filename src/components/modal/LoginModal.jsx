@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { RxCross1 } from "react-icons/rx";
+import { useForm } from "react-hook-form";
+import useLogin from "../../hooks/useLogin.js";
+import { authUser } from "../../features/auth/authSlice.js";
+import { useDispatch } from "react-redux";
 
 function LoginModal({ closeModal, isModalOpen }) {
-  function handleSubmit(e) {
-    e.preventDefault();
-  }
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const { onSubmit, response, isLoading, isError } = useLogin();
+  useEffect(() => {
+    if(!isLoading && !isError) {
+      
+    }
+  }, [isLoading]);
 
   if (!isModalOpen) return null;
 
@@ -31,23 +45,23 @@ function LoginModal({ closeModal, isModalOpen }) {
             </button>
           </div>
           <div className="pt-3 pb-5 px-5 max-h-[32rem] overflow-y-auto">
-            <form onSubmit={handleSubmit} className="space-y-2">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
               <div>
                 <input
                   type="text"
-                  name="videoTitle"
-                  id="title"
+                  id="credential"
                   className="block w-full outline-none border px-2 py-1 text-sm"
                   placeholder="Username or Email"
+                  {...register("credential")}
                 />
               </div>
               <div>
                 <input
                   type="text"
-                  name="videoTitle"
-                  id="title"
+                  id="password"
                   className="block w-full outline-none border px-2 py-1 text-sm"
                   placeholder="Password"
+                  {...register("password")}
                 />
               </div>
               <div className="text-xs">
@@ -61,7 +75,10 @@ function LoginModal({ closeModal, isModalOpen }) {
                 </NavLink>
               </div>
               <div>
-                <button className="px-6 py-2 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-full mx-auto block mt-5">
+                <button
+                  type="submit"
+                  className="px-6 py-2 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-full mx-auto block mt-5"
+                >
                   Login
                 </button>
               </div>

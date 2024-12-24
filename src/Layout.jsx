@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import {
   Navbar,
@@ -7,6 +7,7 @@ import {
   FlexContainer,
   LoginModal,
 } from "./components";
+import { useSelector } from "react-redux";
 
 function Layout() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,6 +18,11 @@ function Layout() {
   function closeModal() {
     setIsModalOpen(false);
   }
+
+  const isLoggedIn = useSelector((state) => state.auth);
+  useEffect(() => {
+    console.log(isLoggedIn)
+  }, [isLoggedIn]);
 
   return (
     <>

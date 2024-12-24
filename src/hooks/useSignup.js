@@ -1,5 +1,4 @@
 import { useCreateUserMutation } from "../api/userApi";
-import { useForm } from "react-hook-form";
 
 function useSignup() {
   const [createUser, { isLoading, isSuccess, isError, error, data }] =
@@ -24,7 +23,7 @@ function useSignup() {
       const response = await createUser(formData).unwrap();
       console.log("Accounted created successfully:: ", response);
     } catch (error) {
-      console.log("ERROR:: ", error);
+      console.log("SIGNUP ERROR:: ", error);
     }
   };
 

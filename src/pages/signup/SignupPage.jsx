@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useCreateUserMutation } from "../../api/userApi.js";
 import useSignup from "../../hooks/useSignup.js";
 
 function SignupPage() {
