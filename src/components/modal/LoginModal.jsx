@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { RxCross1 } from "react-icons/rx";
 import { useForm } from "react-hook-form";
@@ -13,6 +13,13 @@ function LoginModal({ closeModal, isModalOpen }) {
   } = useForm();
 
   const { onSubmit, isLoading, isError } = useLogin();
+
+  // to close login modal after submitting the form
+  useEffect(() => {
+    if(!isLoading && !isError) {
+      closeModal();
+    }
+  }, [isLoading, isError]);
 
   if (!isModalOpen) return null;
 
@@ -69,14 +76,6 @@ function LoginModal({ closeModal, isModalOpen }) {
               </div>
               <div>
                 <button
-                  onClick={() => {
-                    // to close login modal after submitting the form
-                    if (!isLoading && !isError) {
-                      setTimeout(() => {
-                        closeModal();
-                      });
-                    }
-                  }}
                   type="submit"
                   className="px-6 py-2 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-full mx-auto block mt-5"
                 >
