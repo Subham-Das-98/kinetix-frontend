@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useCreateUserMutation } from "../../api/userApi";
+import { useCreateUserMutation } from "../../api/userApi.js";
+import useSignup from "../../hooks/useSignup.js";
 
 function SignupPage() {
   const contentGenres = [
@@ -44,37 +45,20 @@ function SignupPage() {
     formState: { errors },
     handleSubmit,
     watch,
-    reset
+    reset,
   } = useForm();
 
-  const [createUser, {isLoading, isSuccess, isError, error, data}] = useCreateUserMutation();
-  
-  const onSubmit = async (data) => {
-    // Convert to FormData for uploading
-    const formData = new FormData();
-
-    for (const key in data) {
-      if (key === "avatar") {
-        formData.append(key, data[key][0]); // Add file to FormData
-      } else if(key === "coverImage") {
-        formData.append(key, data[key][0])
-      }
-      else {
-        formData.append(key, data[key]);
-      }
-    }
-
-    try {
-      const newUser = await createUser(formData).unwrap();
-      reset(); // reset form fields
-      console.log("Accounted created successfully:: ", newUser);
-    } catch (error) {
-      console.log("ERROR:: ", error);
-    }
-  };
+  const { onSubmit, isLoading, isError } = useSignup();
 
   // to compare with confirm-password
   const password = watch("password");
+
+  // to reset form on success
+  useEffect(() => {
+    if(!isLoading && !isError) {
+      reset();
+    }
+  }, [isLoading])
 
   return (
     <>
