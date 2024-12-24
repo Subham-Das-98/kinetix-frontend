@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import { MdMic } from "react-icons/md";
 import { AiOutlineVideoCameraAdd } from "react-icons/ai";
 import { BsBell } from "react-icons/bs";
 import { CiUser } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import useLogout from "../../hooks/useLogout";
+import { useSelector } from "react-redux";
 
-function Navbar({openModal}) {
+function Navbar({ openModal }) {
+  const { logoutHandler } = useLogout();
+  const loginStatus = useSelector((state) => state.auth.loginStatus);
+
   return (
     <>
       <header className="sticky top-0 z-50">
@@ -54,12 +59,25 @@ function Navbar({openModal}) {
               <button className="hidden md:block">
                 <AiOutlineVideoCameraAdd className="cursor-pointer text-lg md:text-xl lg:text-2xl" />
               </button>
-              <button className="border rounded-full px-2 py-1 md:px-3 md:py-1.5 text-blue-600 hover:bg-blue-100" onClick={openModal}>
+              {!loginStatus && <button
+                className="border rounded-full px-2 py-1 md:px-3 md:py-1.5 text-blue-600 hover:bg-blue-100"
+                onClick={openModal}
+              >
                 <div className="flex items-center gap-x-1">
                   <CiUser className="inline cursor-pointer text-lg md:text-xl lg:text-2xl" />
-                  <span className="text-sm md:text-base font-medium">Sign in</span>
+                  <span className="text-sm md:text-base font-medium">
+                    Sign in
+                  </span>
                 </div>
-              </button>
+              </button>}
+              {loginStatus && <button
+                className="border rounded-full px-2 py-1 md:px-3 md:py-1.5 text-blue-600 hover:bg-blue-100"
+                onClick={() => {
+                  logoutHandler();
+                }}
+              >
+                <span className="text-sm md:text-base font-medium">Logout</span>
+              </button>}
             </div>
           </div>
         </nav>

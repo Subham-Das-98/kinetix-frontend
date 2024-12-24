@@ -21,6 +21,15 @@ export const userApi = createApi({
         credentials: "include",
       }),
     }),
+    logoutUser: builder.mutation({
+      query: (accessToken) => ({
+        url: "/user/logout",
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${accessToken}`
+        }
+      }),
+    }),
     getChannelInfoAndStats: builder.query({
       query: (username) => `/channel/${username}`,
     }),
@@ -31,5 +40,6 @@ export const {
   useGetChannelInfoAndStatsQuery,
   useCreateUserMutation,
   useLoginUserMutation,
+  useLogoutUserMutation,
 } = userApi;
 export default userApi;

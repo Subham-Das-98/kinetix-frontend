@@ -1,7 +1,7 @@
 import { useCreateUserMutation } from "../api/userApi";
 
 function useSignup() {
-  const [createUser, { isLoading, isSuccess, isError, error, data }] =
+  const [createUser, { isLoading, isError, error, data }] =
     useCreateUserMutation();
 
   const onSubmit = async (data) => {
@@ -27,7 +27,7 @@ function useSignup() {
     }
   };
 
-  return { onSubmit, isLoading, isSuccess, isError, error, data };
+  return { onSubmit, isLoading, isError, error, data };
 }
 
 export default useSignup;

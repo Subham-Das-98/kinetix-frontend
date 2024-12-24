@@ -19,10 +19,10 @@ function Layout() {
     setIsModalOpen(false);
   }
 
-  const isLoggedIn = useSelector((state) => state.auth);
+  const currentAuthState = useSelector((state) => state.auth);
   useEffect(() => {
-    console.log(isLoggedIn)
-  }, [isLoggedIn]);
+    console.log(currentAuthState)
+  }, [currentAuthState, isModalOpen]);
 
   return (
     <>
