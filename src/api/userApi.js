@@ -17,8 +17,8 @@ export const userApi = createApi({
       query: (formData) => ({
         url: "/user/login",
         method: "POST",
-        body: formData,
         credentials: "include",
+        body: formData,
       }),
     }),
     logoutUser: builder.mutation({
@@ -26,8 +26,29 @@ export const userApi = createApi({
         url: "/user/logout",
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${accessToken}`
-        }
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }),
+    }),
+    refreshAccessToken: builder.mutation({
+      query: (refreshToken) => ({
+        url: "/user/renew/access-token",
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${refreshToken}`
+        },
+        body: JSON.stringify({ refreshToken }),
+      }),
+    }),
+    validateAccessToken: builder.mutation({
+      query: (accessToken) => ({
+        url: "/user/validate/access-token",
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
       }),
     }),
     getChannelInfoAndStats: builder.query({
@@ -41,5 +62,7 @@ export const {
   useCreateUserMutation,
   useLoginUserMutation,
   useLogoutUserMutation,
+  useRefreshAccessTokenMutation,
+  useValidateAccessTokenMutation,
 } = userApi;
 export default userApi;

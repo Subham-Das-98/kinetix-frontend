@@ -1,26 +1,32 @@
-import { useLogoutUserMutation } from "../api/userApi";
-import { logOutUser } from "../features/auth/authSlice";
+import { useLogoutUserMutation } from "../api/userApi.js";
+import { unauthUser } from "../features/auth/authSlice.js";
 import { useDispatch } from "react-redux";
+import useAccessToken from "./useAccessToken.js";
 
 function useLogout() {
   const dispatch = useDispatch();
-  let response = {};
+  const { renewAccessToken } = useAccessToken();
   const [logoutUser, { isError, error, isLoading, data }] =
     useLogoutUserMutation();
 
   const logoutHandler = async () => {
+    // if access token expierd but not refresh token
+    await renewAccessToken();
     try {
-      response = await logoutUser(localStorage.getItem("accessToken")).unwrap();
-      if (!response.error) {
-        console.log(response);
-        dispatch(logOutUser());
+      const logoutResponse = await logoutUser(
+        localStorage.getItem("accessToken")
+      ).unwrap();
+
+      if (!logoutResponse.error) {
+        console.log(logoutResponse);
+        dispatch(unauthUser());
       }
     } catch (error) {
-      console.log(error);
+      console.log("Login handler error: ", error);
     }
   };
 
-  return { logoutHandler, response, isError, error, isLoading, data };
+  return { logoutHandler, isError, error, isLoading, data };
 }
 
 export default useLogout;

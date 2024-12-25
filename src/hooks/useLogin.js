@@ -4,19 +4,18 @@ import { authUser } from "../features/auth/authSlice.js";
 
 function useLogin() {
   const dispatch = useDispatch();
-  let response = {};
   const [loginUser, { isError, error, isLoading, data }] =
     useLoginUserMutation();
 
   const onSubmit = async (data) => {
     try {
-      response = await loginUser(data).unwrap();
+      const response = await loginUser(data).unwrap();
       if (!response.error) {
         console.log("User login successfull: ", response);
         dispatch(
           authUser({
             loginStatus: true,
-            user: response.data.user,
+            user: { id: response.data.user._id },
             accessToken: response.data.accessToken,
             refreshToken: response.data.refreshToken,
           })
@@ -30,7 +29,7 @@ function useLogin() {
     }
   };
 
-  return { onSubmit, response, isError, error, isLoading, data };
+  return { onSubmit, isError, error, isLoading, data };
 }
 
 export default useLogin;
