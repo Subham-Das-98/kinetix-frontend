@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import {
   Navbar,
@@ -7,27 +7,22 @@ import {
   FlexContainer,
   LoginModal,
 } from "./components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { openModal, closeModal } from "./features/global/globalSlice";
 
 function Layout() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  function openModal() {
-    setIsModalOpen(true);
-  }
-  function closeModal() {
-    setIsModalOpen(false);
-  }
-
+  const dispatch = useDispatch();
+  const isModalOpen = useSelector((state) => state.global.isModalOpen);
   const currentAuthState = useSelector((state) => state.auth);
+
   useEffect(() => {
     console.log(currentAuthState)
   }, [currentAuthState, isModalOpen]);
 
   return (
     <>
-      <Navbar openModal={openModal} />
-      <LoginModal closeModal={closeModal} isModalOpen={isModalOpen} />
+      <Navbar openModal={() => dispatch(openModal())} />
+      <LoginModal closeModal={() => dispatch(closeModal())} isModalOpen={isModalOpen} />
       <FlexContainer>
         <LeftNav />
         <Outlet />

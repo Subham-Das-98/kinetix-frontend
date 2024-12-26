@@ -2,13 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
   Navbar,
-  LeftNav,
-  BottomNav,
   FlexContainer,
   VideoList,
-  GridContainer,
   AddComment,
   CommentList,
+  LoginModal
 } from "../../components";
 import { BsDot } from "react-icons/bs";
 import { BiLike, BiDislike, BiSolidLike, BiSolidDislike } from "react-icons/bi";
@@ -18,9 +16,11 @@ import { MdSort } from "react-icons/md";
 import {
   useGetVideoByIdQuery,
   useGetVideosByRecommendationQuery,
-} from "../../api/videoApi";
-import { useGetChannelInfoAndStatsQuery } from "../../api/userApi";
+} from "../../api/videoApi.js";
+import { useGetChannelInfoAndStatsQuery } from "../../api/userApi.js";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { openModal, closeModal } from "../../features/global/globalSlice.js"; 
 
 function VideoPlayer({ video }) {
   return (
@@ -189,7 +189,11 @@ function RecommendVideoSection({ children }) {
   );
 }
 
+// main component
 function WatchPage() {
+  const dispatch = useDispatch();
+  const isModalOpen = useSelector((state) => state.global.isModalOpen); 
+
   const { username, id } = useParams();
 
   const {
@@ -213,7 +217,8 @@ function WatchPage() {
 
   return (
     <>
-      <Navbar />
+      <Navbar openModal={() => dispatch(openModal())} />
+      <LoginModal closeModal={() => dispatch(closeModal())} isModalOpen={isModalOpen}/>
       <main className="max-w-screen-2xl lg:mx-auto mb-5 md:mb-9 lg:mb-16">
         {videoIsLoading && <div>loading...</div>}
         {videoError && <div>ERROR::{videoError.error}</div>}
