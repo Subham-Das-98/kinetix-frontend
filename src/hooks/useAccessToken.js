@@ -27,6 +27,7 @@ function useAccessToken() {
         ).unwrap();
 
         // console.log("Access token successfully refreshed: ", refreshAccessTokenResponse);
+        
         const { accessToken, refreshToken } = refreshAccessTokenResponse.data;
         dispatch(authUser({...authState, accessToken, refreshToken}));
       } catch (error) {

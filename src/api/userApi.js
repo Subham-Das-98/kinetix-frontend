@@ -35,11 +35,7 @@ export const userApi = createApi({
         url: "/user/renew/access-token",
         method: "POST",
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${refreshToken}`
-        },
-        body: JSON.stringify({ refreshToken }),
+        body: { refreshToken },
       }),
     }),
     validateAccessToken: builder.mutation({
