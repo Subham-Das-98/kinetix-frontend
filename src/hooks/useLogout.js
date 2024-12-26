@@ -10,9 +10,11 @@ function useLogout() {
     useLogoutUserMutation();
 
   const logoutHandler = async () => {
-    // if access token expierd but not refresh token
-    await renewAccessToken();
     try {
+      // if access token expierd but not refresh token
+      await renewAccessToken();
+
+      // if access token is valid
       const logoutResponse = await logoutUser(
         localStorage.getItem("accessToken")
       ).unwrap();
@@ -22,7 +24,7 @@ function useLogout() {
         dispatch(unauthUser());
       }
     } catch (error) {
-      console.log("Login handler error: ", error);
+      console.log("Logout handler error: ", error);
     }
   };
 
