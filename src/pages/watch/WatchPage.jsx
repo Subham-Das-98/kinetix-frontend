@@ -6,7 +6,7 @@ import {
   VideoList,
   AddComment,
   CommentList,
-  LoginModal
+  LoginModal,
 } from "../../components";
 import { BsDot } from "react-icons/bs";
 import { BiLike, BiDislike, BiSolidLike, BiSolidDislike } from "react-icons/bi";
@@ -20,12 +20,12 @@ import {
 import { useGetChannelInfoAndStatsQuery } from "../../api/userApi.js";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { openModal, closeModal } from "../../features/global/globalSlice.js"; 
+import { openModal, closeModal } from "../../features/global/globalSlice.js";
 
 function VideoPlayer({ video }) {
   return (
     <>
-      <div className="aspect-video mb-2 mr-3 md:mr-0 bg-black rounded-xl overflow-hidden">
+      <div className="aspect-video mb-2 bg-black md:rounded-xl md:overflow-hidden md:ml-3 lg:ml-0">
         <video
           src={video?.data.videoFile}
           controls
@@ -49,13 +49,13 @@ function VideoInfoAndStats({ title = "", children }) {
   return (
     <>
       <div>
-        <div>
+        <div className="mx-3 md:mx-0 md:ml-3 lg:ml-0">
           <h1 className="text-lg md:text-xl lg:text-2xl font-semibold">
             {title}
           </h1>
         </div>
-        <div>{children}</div>
-        <div className="bg-gray-100 p-3 rounded-xl my-3 mr-3 md:mr-0">
+        <div className="mx-3 md:mx-0 md:ml-3 lg:ml-0">{children}</div>
+        <div className="bg-gray-100 p-3 rounded-xl my-3 mx-3 md:mx-0 md:ml-3 lg:ml-0">
           <div>
             <span className="text-sm font-medium">16M views</span>
             <BsDot className="inline text-xs text-gray-600" />
@@ -87,7 +87,7 @@ function ChannelInfoAndStats({
 }) {
   return (
     <>
-      <div className="flex items-center gap-x-5 mr-3 md:mr-0 mt-3">
+      <div className="flex items-center gap-x-5 mt-3">
         <div>
           <NavLink to={`/channel/${channel}`}>
             <img
@@ -120,8 +120,8 @@ function ChannelInfoAndStats({
 function SocialActions() {
   return (
     <>
-      <div className="overflow-x-auto no-scrollbar mt-3 md:mt-4 mr-3 md:mr-0">
-        <ul className="flex items-center gap-x-1.5 md:gap-x-2.5 ">
+      <div className="overflow-x-auto no-scrollbar mt-3 md:mt-4">
+        <ul className="flex items-center gap-x-1.5 md:gap-x-2.5">
           <li className="bg-gray-100 rounded-full flex-shrink-0">
             <button className="px-3.5 py-1">
               <BiLike className="inline text-lg md:text-xl lg:text-2xl" />
@@ -164,7 +164,7 @@ function SocialActions() {
 function CommentSection({ children }) {
   return (
     <>
-      <div className="mr-3 md:mr-0">{children}</div>
+      <div className="mx-3 md:mx-0 md:ml-3 lg:ml-0">{children}</div>
     </>
   );
 }
@@ -172,7 +172,7 @@ function CommentSection({ children }) {
 function VideoSection({ children }) {
   return (
     <>
-      <div className="flex-1 ml-3 lg:ml-8 2xl:ml-0">{children}</div>
+      <div className="flex-1 lg:ml-8 2xl:ml-0">{children}</div>
     </>
   );
 }
@@ -192,7 +192,7 @@ function RecommendVideoSection({ children }) {
 // main component
 function WatchPage() {
   const dispatch = useDispatch();
-  const isModalOpen = useSelector((state) => state.global.isModalOpen); 
+  const isModalOpen = useSelector((state) => state.global.isModalOpen);
 
   const { username, id } = useParams();
 
@@ -218,7 +218,10 @@ function WatchPage() {
   return (
     <>
       <Navbar openModal={() => dispatch(openModal())} />
-      <LoginModal closeModal={() => dispatch(closeModal())} isModalOpen={isModalOpen}/>
+      <LoginModal
+        closeModal={() => dispatch(closeModal())}
+        isModalOpen={isModalOpen}
+      />
       <main className="max-w-screen-2xl lg:mx-auto mb-5 md:mb-9 lg:mb-16">
         {videoIsLoading && <div>loading...</div>}
         {videoError && <div>ERROR::{videoError.error}</div>}
