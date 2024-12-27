@@ -222,7 +222,7 @@ function WatchPage() {
         closeModal={() => dispatch(closeModal())}
         isModalOpen={isModalOpen}
       />
-      <main className="max-w-screen-2xl lg:mx-auto mb-5 md:mb-9 lg:mb-16">
+      <main className="max-w-[1800px] lg:mx-auto mb-5 md:mb-9 lg:mb-16">
         {videoIsLoading && <div>loading...</div>}
         {videoError && <div>ERROR::{videoError.error}</div>}
         {!videoIsLoading && video && (
