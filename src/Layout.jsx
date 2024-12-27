@@ -16,8 +16,8 @@ function Layout() {
   const currentAuthState = useSelector((state) => state.auth);
 
   useEffect(() => {
-    console.log(currentAuthState)
-  }, [currentAuthState, isModalOpen]);
+    
+  }, []);
 
   return (
     <>

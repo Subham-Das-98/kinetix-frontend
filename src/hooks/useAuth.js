@@ -5,7 +5,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { authUser, unauthUser } from "../features/auth/authSlice.js";
 
-function useAccessToken() {
+function useAuth() {
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth);
 
@@ -46,4 +46,4 @@ function useAccessToken() {
   return { renewAccessToken, autoLogout };
 }
 
-export default useAccessToken;
+export default useAuth;
