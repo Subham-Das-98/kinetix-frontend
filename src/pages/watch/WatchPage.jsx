@@ -21,6 +21,7 @@ import { useGetChannelInfoAndStatsQuery } from "../../api/userApi.js";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal, closeModal } from "../../features/global/globalSlice.js";
+import useAuth from "../../hooks/useAuth.js";
 
 function VideoPlayer({ video }) {
   return (
@@ -192,18 +193,22 @@ function RecommendVideoSection({ children }) {
 // main component
 function WatchPage() {
   const dispatch = useDispatch();
-  const isModalOpen = useSelector((state) => state.global.isModalOpen);
-
   const { username, id } = useParams();
 
+  // for login modal
+  const isModalOpen = useSelector((state) => state.global.isModalOpen);
+
+  // fetch video by id
   const {
     data: video,
     error: videoError,
     isLoading: videoIsLoading,
   } = useGetVideoByIdQuery({ username, id });
 
+  // fetch channel info
   const { data: channel } = useGetChannelInfoAndStatsQuery(username);
 
+  // fetch recommended videos
   const {
     data: videos,
     error: videosError,
@@ -214,6 +219,18 @@ function WatchPage() {
   useEffect(() => {
     window.scrollTo({ top: 0 });
   });
+
+  // try to authenticate on first render
+  const isAuthenticated = useSelector((state) => state.global.isAuthenticated);
+  const { initializeAuth } = useAuth();
+  initializeAuth();
+
+  if (!isAuthenticated)
+    return (
+      <>
+        <div>Authenticating... please wait...</div>
+      </>
+    );
 
   return (
     <>

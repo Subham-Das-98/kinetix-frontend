@@ -24,7 +24,7 @@ function useLogout() {
         dispatch(unauthUser());
       }
     } catch (error) {
-      console.log("Logout handler error: ", error);
+      console.log("LOGOUT HANDLER ERROR:: ", error.message);
     }
   };
 
