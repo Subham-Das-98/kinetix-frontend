@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const userApi = createApi({
+const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_SERVER_API_HOSTNAME}:${import.meta.env.VITE_SERVER_API_PORT}/api/v1`,
@@ -61,4 +61,5 @@ export const {
   useRefreshAccessTokenMutation,
   useValidateAccessTokenMutation,
 } = userApi;
+
 export default userApi;

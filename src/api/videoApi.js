@@ -1,9 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const videoApi = createApi({
+const videoApi = createApi({
   reducerPath: "videoApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_SERVER_API_HOSTNAME}:${import.meta.env.VITE_SERVER_API_PORT}/api/v1`,
+    baseUrl: `${import.meta.env.VITE_SERVER_API_HOSTNAME}:${
+      import.meta.env.VITE_SERVER_API_PORT
+    }/api/v1`,
   }),
   endpoints: (builder) => ({
     getVideosByRecommendation: builder.query({
@@ -23,4 +25,5 @@ export const {
   useGetVideoByIdQuery,
   useGetAllVideosByChannelNameQuery,
 } = videoApi;
+
 export default videoApi;
