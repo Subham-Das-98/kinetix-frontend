@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { GridContainer, VideoList } from "../../components";
-import { useGetAllVideosByChannelNameQuery } from "../../api/videoApi";
+import { GridContainer, VideoList } from "../../../components";
+import { useGetAllVideosByChannelNameQuery } from "../../../api/videoApi";
 import { useParams } from "react-router-dom";
 
 function ChannelVideosPage() {
-  const {username} = useParams();
+  const { username } = useParams();
   const {
     data: videos,
     error,
@@ -14,7 +14,7 @@ function ChannelVideosPage() {
   return (
     <div className="mt-3 mb-12">
       {isLoading && <div>loading...</div>}
-      {error && <div>ERROR::{error.error}</div>}
+      {error && <div>ERROR:: {error.error}</div>}
       {videos && (
         <GridContainer colWidth="14rem">
           <VideoList

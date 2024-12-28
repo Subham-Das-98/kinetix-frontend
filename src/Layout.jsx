@@ -24,7 +24,7 @@ function Layout() {
   if (!isAuthenticated)
     return (
       <>
-        <div>Authenticating...please wait...</div>
+        <div>Authentication in progress, please wait...</div>
       </>
     );
 

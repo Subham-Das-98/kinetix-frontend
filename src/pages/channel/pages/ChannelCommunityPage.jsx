@@ -1,5 +1,5 @@
 import React from "react";
-import { PostList } from "../../components";
+import { PostList } from "../../../components";
 
 function ChannelCommunityPage() {
   return (
