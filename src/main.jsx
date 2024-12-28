@@ -22,6 +22,8 @@ import {
   SignupPage,
 } from "./pages";
 
+import { Protected } from "./components/index.js";
+
 import store from "./app/store.js";
 import { Provider } from "react-redux";
 
@@ -45,7 +47,14 @@ const router = createBrowserRouter(
         <Route path="/signup" element={<SignupPage />} />
       </Route>
       <Route path="/watch/:username/v_id/:id" element={<WatchPage />} />
-      <Route path="/channel/:username/studio" element={<StudioLayout />}>
+      <Route
+        path="/channel/:username/studio"
+        element={
+          <Protected authentication>
+            <StudioLayout />
+          </Protected>
+        }
+      >
         <Route
           path="/channel/:username/studio"
           element={<StudioDashboardPage />}

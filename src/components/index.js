@@ -4,6 +4,7 @@ import Navbar from "./navigation/Navbar.jsx";
 import VideoList from "./video/VideoList.jsx";
 import FlexContainer from "./container/FlexContainer.jsx";
 import GridContainer from "./container/GridContainer.jsx";
+import Protected from "./container/ProtectedContainer.jsx";
 import VideoCard from "./video/VideoCard.jsx";
 import AddComment from "./comment/AddComment.jsx";
 import CommentCard from "./comment/CommentCard.jsx";
@@ -26,4 +27,5 @@ export {
   PostCard,
   PostList,
   LoginModal,
+  Protected
 };
