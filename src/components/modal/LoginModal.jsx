@@ -16,7 +16,7 @@ function LoginModal({ closeModal, isModalOpen }) {
 
   // to close login modal after submitting the form
   useEffect(() => {
-    if(!isLoading && !isError) {
+    if (!isLoading && !isError) {
       closeModal();
     }
   }, [isLoading, isError]);
@@ -52,8 +52,9 @@ function LoginModal({ closeModal, isModalOpen }) {
                   id="credential"
                   className="block w-full outline-none border px-2 py-1 text-sm"
                   placeholder="Username or Email"
-                  {...register("credential")}
+                  {...register("credential", { required: true })}
                 />
+                <div className={`text-xs text-red-600 ${errors.credential?.type === "required" ? "block" : "hidden"}`}>*username or email required</div>
               </div>
               <div>
                 <input
@@ -61,8 +62,9 @@ function LoginModal({ closeModal, isModalOpen }) {
                   id="password"
                   className="block w-full outline-none border px-2 py-1 text-sm"
                   placeholder="Password"
-                  {...register("password")}
+                  {...register("password", { required: true })}
                 />
+                <div className={`text-xs text-red-600 ${errors.password?.type === "required" ? "block" : "hidden"}`}>*password required</div>
               </div>
               <div className="text-xs">
                 <span>Don't have an account? </span>
