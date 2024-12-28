@@ -162,7 +162,7 @@ function UploadVideoModal({ closeModal, isModalOpen }) {
   return (
     <>
       <div
-        className="modal-overlay flex justify-center items-center fixed top-0 left-0 bottom-0 right-0 backdrop-brightness-50 backdrop-blur-sm px-3"
+        className="modal-overlay flex justify-center items-center fixed top-0 left-0 bottom-0 right-0 backdrop-brightness-50 backdrop-blur-sm px-3 z-50"
         onClick={closeModal}
       >
         <div
