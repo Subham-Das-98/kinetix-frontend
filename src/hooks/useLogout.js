@@ -5,14 +5,14 @@ import useAuth from "./useAuth.js";
 
 function useLogout() {
   const dispatch = useDispatch();
-  const { renewAccessToken } = useAuth();
+  const { renewAccessTokenOrAutoLogout } = useAuth();
   const [logoutUser, { isError, error, isLoading, data }] =
     useLogoutUserMutation();
 
   const logoutHandler = async () => {
     try {
       // if access token expierd but not refresh token
-      await renewAccessToken();
+      await renewAccessTokenOrAutoLogout();
 
       // if access token is valid
       const logoutResponse = await logoutUser(

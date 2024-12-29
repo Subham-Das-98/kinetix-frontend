@@ -25,12 +25,10 @@ function useAuth() {
     throw new Error("AUTO LOGOUT:: Please log-in again");
   };
 
-  const renewAccessToken = async () => {
+  const renewAccessTokenOrAutoLogout = async () => {
     try {
       // if accessToken is valid, do nothing
-      await validateAccessToken(
-        localStorage.getItem("accessToken")
-      ).unwrap();
+      await validateAccessToken(localStorage.getItem("accessToken")).unwrap();
     } catch (error) {
       try {
         // if accessToken is invalid, try to genereate new one with the refreshToken
@@ -55,7 +53,7 @@ function useAuth() {
       const checkAuth = async () => {
         dispatch(authenticationPending());
         try {
-          await renewAccessToken();
+          await renewAccessTokenOrAutoLogout();
         } catch (error) {
           console.log("INITIALIZE AUTH ERROR:: ", error.message);
         }
@@ -68,7 +66,7 @@ function useAuth() {
     }, []);
   };
 
-  return { initializeAuth, renewAccessToken, autoLogout };
+  return { initializeAuth, renewAccessTokenOrAutoLogout, autoLogout };
 }
 
 export default useAuth;
