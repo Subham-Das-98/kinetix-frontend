@@ -20,7 +20,7 @@ import {
 import { useGetChannelInfoAndStatsQuery } from "../../api/userApi.js";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { openModal, closeModal } from "../../features/global/globalSlice.js";
+import { openLoginModal, closeLoginModal } from "../../features/global/globalSlice.js";
 import useAuth from "../../hooks/useAuth.js";
 
 function VideoPlayer({ video }) {
@@ -196,7 +196,7 @@ function WatchPage() {
   const { username, id } = useParams();
 
   // for login modal
-  const isModalOpen = useSelector((state) => state.global.isModalOpen);
+  const isLoginModalOpen = useSelector((state) => state.global.isLoginModalOpen);
 
   // fetch video by id
   const {
@@ -234,10 +234,10 @@ function WatchPage() {
 
   return (
     <>
-      <Navbar openModal={() => dispatch(openModal())} />
+      <Navbar openModal={() => dispatch(openLoginModal())} />
       <LoginModal
-        closeModal={() => dispatch(closeModal())}
-        isModalOpen={isModalOpen}
+        closeModal={() => dispatch(closeLoginModal())}
+        isModalOpen={isLoginModalOpen}
       />
       <main className="max-w-[1800px] lg:mx-auto mb-5 md:mb-9 lg:mb-16">
         {videoIsLoading && <div>loading...</div>}

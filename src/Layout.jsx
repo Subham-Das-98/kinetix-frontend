@@ -8,12 +8,12 @@ import {
   LoginModal,
 } from "./components";
 import { useSelector, useDispatch } from "react-redux";
-import { openModal, closeModal } from "./features/global/globalSlice";
+import { openLoginModal, closeLoginModal } from "./features/global/globalSlice";
 import useAuth from "./hooks/useAuth";
 
 function Layout() {
   const dispatch = useDispatch();
-  const isModalOpen = useSelector((state) => state.global.isModalOpen);
+  const isLoginModalOpen = useSelector((state) => state.global.isLoginModalOpen);
   const currentAuthState = useSelector((state) => state.auth);
 
   // try to authenticate on first render
@@ -30,10 +30,10 @@ function Layout() {
 
   return (
     <>
-      <Navbar openModal={() => dispatch(openModal())} />
+      <Navbar openModal={() => dispatch(openLoginModal())} />
       <LoginModal
-        closeModal={() => dispatch(closeModal())}
-        isModalOpen={isModalOpen}
+        closeModal={() => dispatch(closeLoginModal())}
+        isModalOpen={isLoginModalOpen}
       />
       <FlexContainer>
         <LeftNav />

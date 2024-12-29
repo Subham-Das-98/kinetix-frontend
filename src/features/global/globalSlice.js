@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isModalOpen: false,
+  isLoginModalOpen: false,
   isAuthenticated: true,
 };
 
@@ -9,11 +9,11 @@ export const globalSlice = createSlice({
   name: "global",
   initialState,
   reducers: {
-    openModal: (state) => {
-      state.isModalOpen = true;
+    openLoginModal: (state) => {
+      state.isLoginModalOpen = true;
     },
-    closeModal: (state) => {
-      state.isModalOpen = false;
+    closeLoginModal: (state) => {
+      state.isLoginModalOpen = false;
     },
     authenticationPending: (state) => {
       state.isAuthenticated = false;
@@ -24,6 +24,6 @@ export const globalSlice = createSlice({
   },
 });
 
-export const { openModal, closeModal, authenticationPending, authenticationCompleted } = globalSlice.actions;
+export const { openLoginModal, closeLoginModal, authenticationPending, authenticationCompleted } = globalSlice.actions;
 
 export default globalSlice.reducer;
