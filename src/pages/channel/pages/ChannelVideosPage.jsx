@@ -12,7 +12,7 @@ function ChannelVideosPage() {
   } = useGetAllVideosByChannelNameQuery(username);
 
   return (
-    <div className="mt-3 mb-12">
+    <div className="mt-3 mb-20">
       {isLoading && <div>loading...</div>}
       {error && <div>ERROR:: {error.error}</div>}
       {videos && (

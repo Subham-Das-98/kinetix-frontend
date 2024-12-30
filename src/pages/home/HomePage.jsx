@@ -13,7 +13,7 @@ function HomePage() {
 
   return (
     <>
-      <main className="w-full">
+      <main className="w-full mb-20">
         {isLoading && <div>loading...</div>}
         {error && <div>ERROR:: {error.error}</div>}
         {videos && (
