@@ -3,7 +3,7 @@ import { useUploadVideoMutation } from "../api/videoApi";
 import { useSelector } from "react-redux";
 
 function useVideo() {
-  const [uploadVideo, { isError, isLoading, data, error }] =
+  const [uploadVideo, { isError, isLoading, isSuccess, data, error }] =
     useUploadVideoMutation();
   const { username } = useParams();
   const accessToken = useSelector(state => state.auth.accessToken)
@@ -33,7 +33,7 @@ function useVideo() {
     }
   };
 
-  return { onSubmit, isLoading };
+  return { onSubmit, isLoading, isError, isSuccess, data, error };
 }
 
 export default useVideo;

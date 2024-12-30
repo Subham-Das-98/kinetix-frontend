@@ -6,8 +6,10 @@ import { AiOutlineVideoCameraAdd } from "react-icons/ai";
 import { CiUser } from "react-icons/ci";
 import { BsFire } from "react-icons/bs";
 import { MdOutlineSubscriptions } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 function BottomNav() {
+  const username = useSelector((state) => state.auth.user?.username);
   return (
     <>
       <nav className="md:hidden fixed bottom-0 w-full bg-white py-2">
@@ -30,7 +32,7 @@ function BottomNav() {
               </Link>
             </li>
             <li>
-              <Link to={"/channel/YourChannelName/studio"}>
+              <Link to={`/channel/${username}/studio`}>
                 <div>
                   <AiOutlineVideoCameraAdd className="text-2xl mx-auto" />
                   <span>Studio</span>

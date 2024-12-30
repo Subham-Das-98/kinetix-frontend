@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useId } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { BsBroadcast } from "react-icons/bs";
 import { LiaUploadSolid } from "react-icons/lia";
@@ -129,11 +129,9 @@ function UploadVideoModal({ closeModal, isModalOpen }) {
     formState: { errors },
   } = useForm();
 
-  const uploadProgress = useSelector(
-    (state) => state.global.uploadProgress
-  );
+  const uploadProgress = useSelector((state) => state.global.uploadProgress);
 
-  const { onSubmit, isLoading } = useVideo();
+  const { onSubmit, isLoading, isError, isSuccess, error } = useVideo();
 
   const genreOptions = [
     "video",
@@ -169,13 +167,22 @@ function UploadVideoModal({ closeModal, isModalOpen }) {
     "news reports",
   ];
 
+  // to reset form on success
+  useEffect(() => {
+    if (!isLoading && !isError) {
+      reset();
+    }
+  }, [isLoading]);
+
   if (!isModalOpen) return null;
 
   return (
     <>
       <div
         className="modal-overlay flex justify-center items-center fixed top-0 left-0 bottom-0 right-0 backdrop-brightness-50 backdrop-blur-sm px-3 z-50"
-        onClick={closeModal}
+        onClick={() => {
+          if (!isLoading) closeModal();
+        }}
       >
         <div
           className="modal-content bg-white rounded-3xl w-full md:w-3/4 lg:w-1/2"
@@ -186,13 +193,15 @@ function UploadVideoModal({ closeModal, isModalOpen }) {
               Upload video
             </div>
             <button
-              onClick={closeModal}
+              onClick={() => {
+                if (!isLoading) closeModal();
+              }}
               className="p-2 rounded-full hover:bg-gray-100"
             >
               <RxCross1 className="text-xl" />
             </button>
           </div>
-          <div className="pt-3 pb-5 px-5 max-h-[32rem] overflow-y-auto">
+          <div className="relative pt-3 pb-5 px-5 max-h-[32rem] overflow-y-auto">
             <form
               onSubmit={handleSubmit(onSubmit)}
               encType="multipart/form-data"
@@ -327,15 +336,26 @@ function UploadVideoModal({ closeModal, isModalOpen }) {
               <div>
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-full mx-auto block mt-5"
-                  name="uploadBtn"
+                  className="px-6 py-2 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-full mx-auto block mt-5 disabled:bg-gray-700 disabled:hover:cursor-not-allowed"
+                  disabled={isLoading}
                 >
                   Upload
                 </button>
               </div>
-              <div>
-                <span>upload: {isLoading && "in progress..."}{!isLoading && "finished"}</span>
-              </div>
+              {(isSuccess || isLoading || isError) && (
+                <div className="md:absolute md:right-4 md:bottom-5 text-sm text-gray-600 tracking-wide">
+                  <span>
+                    upload&#40;
+                    <span className="text-xs font-medium">
+                      <span>{uploadProgress < 100 && `${uploadProgress}%`}</span>
+                      <span>{uploadProgress === 100 && isLoading && !isError && "Processing..."}</span>
+                      <span className="text-green-600">{isSuccess && "Finished"}</span>
+                      <span className="text-red-600">{isError && `Failed: ${JSON.stringify(error)}`}</span>
+                    </span>
+                    &#41;
+                  </span>
+                </div>
+              )}
             </form>
           </div>
         </div>
