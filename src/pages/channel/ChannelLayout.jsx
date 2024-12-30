@@ -59,90 +59,55 @@ function InfoAndStats({
 function ChannelPageNavBar() {
   const location = useLocation();
   const { username } = useParams();
+
+  const links = [
+    {
+      name: "Home",
+      slug: `/channel/${encodeURIComponent(username)}`,
+    },
+    {
+      name: "Videos",
+      slug: `/channel/${encodeURIComponent(username)}/videos`,
+    },
+    {
+      name: "Live",
+      slug: `/channel/${encodeURIComponent(username)}/live`,
+    },
+    {
+      name: "Community",
+      slug: `/channel/${encodeURIComponent(username)}/community`,
+    },
+    {
+      name: "Playlists",
+      slug: `/channel/${encodeURIComponent(username)}/playlists`,
+    },
+    {
+      name: "About",
+      slug: `/channel/${encodeURIComponent(username)}/about`,
+    },
+  ];
+
   return (
     <>
       <div className="sticky top-[72px] mt-5 mx-2.5 lg:mx-0 bg-white border-b">
         <ul className="flex gap-5 lg:gap-x-7 font-semibold text-gray-500 overflow-x-auto no-scrollbar">
-          <li>
-            <NavLink
-              to={`/channel/${username}`}
-              className={(isActive) =>
-                isActive && location.pathname === `/channel/${username}`
-                  ? "block border-b-2 border-b-gray-900 text-black"
-                  : "block hover:border-b-2 hover:border-b-gray-400"
-              }
-              end
-            >
-              <div className="md:py-1 lg:py-2">Home</div>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to={`/channel/${username}/videos`}
-              className={(isActive) =>
-                isActive && location.pathname === `/channel/${username}/videos`
-                  ? "block border-b-2 border-b-gray-900 text-black"
-                  : "block hover:border-b-2 hover:border-b-gray-400"
-              }
-              end
-            >
-              <div className="md:py-1 lg:py-2">Videos</div>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to={`/channel/${username}/live`}
-              className={(isActive) =>
-                isActive && location.pathname === `/channel/${username}/live`
-                  ? "block border-b-2 border-b-gray-900 text-black"
-                  : "block hover:border-b-2 hover:border-b-gray-400"
-              }
-              end
-            >
-              <div className="md:py-1 lg:py-2">Live</div>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to={`/channel/${username}/community`}
-              className={(isActive) =>
-                isActive &&
-                location.pathname === `/channel/${username}/community`
-                  ? "block border-b-2 border-b-gray-900 text-black"
-                  : "block hover:border-b-2 hover:border-b-gray-400"
-              }
-              end
-            >
-              <div className="md:py-1 lg:py-2">Community</div>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to={`/channel/${username}/playlist`}
-              className={(isActive) =>
-                isActive &&
-                location.pathname === `/channel/${username}/playlist`
-                  ? "block border-b-2 border-b-gray-900 text-black"
-                  : "block hover:border-b-2 hover:border-b-gray-400"
-              }
-              end
-            >
-              <div className="md:py-1 lg:py-2">Playlists</div>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to={`/channel/${username}/about`}
-              className={(isActive) =>
-                isActive && location.pathname === `/channel/${username}/about`
-                  ? "block border-b-2 border-b-gray-900 text-black"
-                  : "block hover:border-b-2 hover:border-b-gray-400"
-              }
-              end
-            >
-              <div className="md:py-1 lg:py-2">About</div>
-            </NavLink>
-          </li>
+          {links.map((link) => (
+            <li key={link.name}>
+              <NavLink
+                to={link.slug}
+                className={(isActive) =>
+                  isActive &&
+                  location.pathname ===
+                    link.slug
+                    ? "block border-b-2 border-b-gray-900 text-black"
+                    : "block hover:border-b-2 hover:border-b-gray-400"
+                }
+                end
+              >
+                <div className="md:py-1 lg:py-2">{link.name}</div>
+              </NavLink>
+            </li>
+          ))}
         </ul>
       </div>
     </>
