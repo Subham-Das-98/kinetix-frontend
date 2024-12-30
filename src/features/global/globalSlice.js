@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLoginModalOpen: false,
   isAuthenticated: true,
+  uploadProgress: 0,
 };
 
 export const globalSlice = createSlice({
@@ -21,9 +22,18 @@ export const globalSlice = createSlice({
     authenticationCompleted: (state) => {
       state.isAuthenticated = true;
     },
+    setUploadProgress: (state, action) => {
+      state.uploadProgress = action.payload;
+    },
   },
 });
 
-export const { openLoginModal, closeLoginModal, authenticationPending, authenticationCompleted } = globalSlice.actions;
+export const {
+  openLoginModal,
+  closeLoginModal,
+  authenticationPending,
+  authenticationCompleted,
+  setUploadProgress,
+} = globalSlice.actions;
 
 export default globalSlice.reducer;

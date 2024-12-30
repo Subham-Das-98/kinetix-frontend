@@ -50,6 +50,9 @@ const userApi = createApi({
     getChannelInfoAndStats: builder.query({
       query: (username) => `/channel/${username}`,
     }),
+    getUser: builder.query({
+      query:() => "/user/current-user"
+    })
   }),
 });
 
@@ -60,6 +63,7 @@ export const {
   useLogoutUserMutation,
   useRefreshAccessTokenMutation,
   useValidateAccessTokenMutation,
+  useGetUserQuery
 } = userApi;
 
 export default userApi;

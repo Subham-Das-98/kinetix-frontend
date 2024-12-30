@@ -4,6 +4,9 @@ import { BsBroadcast } from "react-icons/bs";
 import { LiaUploadSolid } from "react-icons/lia";
 import { LiaEdit } from "react-icons/lia";
 import { RxCross1 } from "react-icons/rx";
+import { useForm } from "react-hook-form";
+import useVideo from "../../../hooks/useVideo.js";
+import { useSelector } from "react-redux";
 
 function TopActionBar({ openModal }) {
   return (
@@ -119,6 +122,19 @@ function AnalyticsCard() {
 }
 
 function UploadVideoModal({ closeModal, isModalOpen }) {
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const uploadProgress = useSelector(
+    (state) => state.global.uploadProgress
+  );
+
+  const { onSubmit, isLoading } = useVideo();
+
   const genreOptions = [
     "video",
     "tutorials",
@@ -153,10 +169,6 @@ function UploadVideoModal({ closeModal, isModalOpen }) {
     "news reports",
   ];
 
-  function handleSubmit(e) {
-    e.preventDefault();
-  }
-
   if (!isModalOpen) return null;
 
   return (
@@ -181,48 +193,58 @@ function UploadVideoModal({ closeModal, isModalOpen }) {
             </button>
           </div>
           <div className="pt-3 pb-5 px-5 max-h-[32rem] overflow-y-auto">
-            <form onSubmit={handleSubmit} className="space-y-2">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              encType="multipart/form-data"
+              className="space-y-2"
+            >
               <div>
                 <label
-                  htmlFor="title"
-                  className="block mb-0.5 font-medium text-sm md:text-base"
+                  htmlFor="videoTitle"
+                  className="flex items-center gap-x-2 mb-0.5 font-medium text-sm md:text-base"
                 >
-                  Title
+                  <span>Title</span>
+                  {errors.videoTitle?.type === "required" && (
+                    <span className="text-xs text-red-600">
+                      *video title is required
+                    </span>
+                  )}
                 </label>
                 <input
                   type="text"
-                  name="videoTitle"
-                  id="title"
+                  id="videoTitle"
                   className="block w-full outline-none border px-2 py-1 text-sm"
+                  {...register("videoTitle", { required: true })}
                 />
               </div>
               <div>
                 <label
-                  htmlFor="desc"
-                  className="block mb-0.5 font-medium text-sm md:text-base"
+                  htmlFor="videoDesc"
+                  className="block items-center gap-x-2 mb-0.5 font-medium text-sm md:text-base"
                 >
                   Description
                 </label>
                 <textarea
                   type="text"
                   rows={3}
-                  name="videoDesc"
-                  id="desc"
+                  id="videoDesc"
                   className="block w-full outline-none border px-2 py-1 resize-none text-sm"
+                  {...register("videoDesc")}
                 />
               </div>
               <div>
                 <label
-                  htmlFor="genre"
+                  htmlFor="videoGenre"
                   className="mb-0.5 font-medium text-sm md:text-base"
                 >
                   Genre
                 </label>
                 <select
                   name="videoGenre"
-                  id="genre"
+                  id="videoGenre"
                   className="outline-none border px-2 py-1 text-sm ml-3"
                   defaultValue={""}
+                  {...register("videoGenre")}
                 >
                   <option value="" hidden disabled>
                     --select--
@@ -234,41 +256,85 @@ function UploadVideoModal({ closeModal, isModalOpen }) {
               </div>
               <div>
                 <label
-                  htmlFor="tags"
+                  htmlFor="videoTags"
                   className="block mb-0.5 font-medium text-sm md:text-base"
                 >
                   Tags
                 </label>
                 <input
                   type="text"
-                  name="videoTags"
-                  id="tags"
+                  id="videoTags"
                   className="block w-full outline-none border px-2 py-1 text-sm"
+                  {...register("videoTags")}
                 />
               </div>
               <div>
                 <label
-                  htmlFor="video"
-                  className="block mb-0.5 font-medium text-sm md:text-base"
+                  htmlFor="videoFile"
+                  className="flex items-center gap-x-2 mb-0.5 font-medium text-sm md:text-base"
                 >
-                  Video
+                  <span>Video</span>
+                  {errors.videoFile && (
+                    <span className="text-xs text-red-600">
+                      {errors.videoFile.message}
+                    </span>
+                  )}
                 </label>
-                <input type="file" name="videoFile" id="video" />
+                <input
+                  type="file"
+                  id="videoFile"
+                  {...register("videoFile", {
+                    required: "*video file is required",
+                    validate: {
+                      maxCount: (files) =>
+                        files?.length === 1 || "*only one file is allowed",
+                      mimeType: (files) =>
+                        files[0]?.type.startsWith("video/") ||
+                        "*invalid filetype",
+                    },
+                  })}
+                />
               </div>
               <div>
                 <label
-                  htmlFor="thumbnail"
-                  className="block mb-0.5 font-medium text-sm md:text-base"
+                  htmlFor="videoThumbnail"
+                  className="flex items-center gap-x-2 mb-0.5 font-medium text-sm md:text-base"
                 >
-                  Thumbnail
+                  <span>Thumbnail</span>
+                  {errors.videoThumbnail && (
+                    <span className="text-xs text-red-600">
+                      {errors.videoThumbnail.message}
+                    </span>
+                  )}
                 </label>
-                <input type="file" name="videoThumbnail" id="thumbnail" />
+                <input
+                  type="file"
+                  id="videoThumbnail"
+                  {...register("videoThumbnail", {
+                    required: false,
+                    validate: {
+                      maxCount: (files) =>
+                        files?.length <= 1 || "*only one file is allowed",
+                      mimeType: (files) =>
+                        files.length &&
+                        (files[0]?.type.startsWith("image/") ||
+                          "*invalid filetype"),
+                    },
+                  })}
+                />
               </div>
 
               <div>
-                <button className="px-6 py-2 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-full mx-auto block mt-5" name="uploadBtn">
+                <button
+                  type="submit"
+                  className="px-6 py-2 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-full mx-auto block mt-5"
+                  name="uploadBtn"
+                >
                   Upload
                 </button>
+              </div>
+              <div>
+                <span>upload: {isLoading && "in progress..."}{!isLoading && "finished"}</span>
               </div>
             </form>
           </div>

@@ -18,8 +18,11 @@ import { BsFire, BsBroadcast } from "react-icons/bs";
 import { IoMusicalNotesOutline } from "react-icons/io5";
 import { RiMovie2Line } from "react-icons/ri";
 import { SiYoutubegaming } from "react-icons/si";
+import { useSelector } from "react-redux";
 
 function LeftNav() {
+  const { loginStatus, accessToken, user } = useSelector((state) => state.auth);
+
   return (
     <>
       <aside>
@@ -32,12 +35,14 @@ function LeftNav() {
                   <span className="">Home</span>
                 </div>
               </NavLink>
-              <NavLink to={"/channel/YourChannelName/studio"}>
-                <div className="flex items-center gap-x-4 px-5 py-2 hover:bg-slate-200 rounded-lg">
-                  <AiOutlineVideoCameraAdd className="text-2xl" />
-                  <span>Studio</span>
-                </div>
-              </NavLink>
+              {loginStatus && accessToken && user.id && (
+                <NavLink to={`/channel/${user.username}/studio`}>
+                  <div className="flex items-center gap-x-4 px-5 py-2 hover:bg-slate-200 rounded-lg">
+                    <AiOutlineVideoCameraAdd className="text-2xl" />
+                    <span>Studio</span>
+                  </div>
+                </NavLink>
+              )}
               <NavLink to={"/feed/subscriptions"}>
                 <div className="flex items-center gap-x-4 px-5 py-2 hover:bg-slate-200 rounded-lg">
                   <MdOutlineSubscriptions className="text-2xl" />
