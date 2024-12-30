@@ -221,16 +221,16 @@ function WatchPage() {
   });
 
   // try to authenticate on first render
-  // const isAuthenticated = useSelector((state) => state.global.isAuthenticated);
-  // const { initializeAuth } = useAuth();
-  // initializeAuth();
+  const isAuthenticated = useSelector((state) => state.global.isAuthenticated);
+  const { initializeAuth } = useAuth();
+  initializeAuth();
 
-  // if (!isAuthenticated)
-  //   return (
-  //     <>
-  //       <div>Authenticating... please wait...</div>
-  //     </>
-  //   );
+  if (!isAuthenticated)
+    return (
+      <>
+        <div>Authentication in progress, please wait...</div>
+      </>
+    );
 
   return (
     <>
