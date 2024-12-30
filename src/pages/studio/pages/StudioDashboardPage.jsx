@@ -350,7 +350,7 @@ function UploadVideoModal({ closeModal, isModalOpen }) {
                       <span>{uploadProgress < 100 && `${uploadProgress}%`}</span>
                       <span>{uploadProgress === 100 && isLoading && !isError && "Processing..."}</span>
                       <span className="text-green-600">{isSuccess && "Finished"}</span>
-                      <span className="text-red-600">{isError && `Failed: ${JSON.stringify(error)}`}</span>
+                      <span className="text-red-600">{isError && "Failed"}</span>
                     </span>
                     &#41;
                   </span>
