@@ -15,12 +15,16 @@ const commentApi = createApi({
         },
         body: {content}
       })
+    }),
+    getAllCommentsByRefId: builder.query({
+      query: (refId) => `/comment/all/${refId}`
     })
   })
 });
 
 export const {
-  useAddCommentMutation
+  useAddCommentMutation,
+  useGetAllCommentsByRefIdQuery
 } = commentApi;
 
 export default commentApi;
