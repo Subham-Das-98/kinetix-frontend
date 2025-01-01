@@ -51,7 +51,12 @@ const userApi = createApi({
       query: (username) => `/channel/${username}`,
     }),
     getUser: builder.query({
-      query:() => "/user/current-user"
+      query:(accessToken) => ({
+        url: "/user/current-user",
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
     })
   }),
 });

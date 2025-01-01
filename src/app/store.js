@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import videoApi from "../api/videoApi.js";
 import userApi from "../api/userApi.js";
+import commentApi from "../api/commentApi.js";
 import authSlice from "../features/auth/authSlice.js";
 import globalSlice from "../features/global/globalSlice.js";
 
@@ -11,11 +12,13 @@ const store = configureStore({
     auth: authSlice,
     [videoApi.reducerPath]: videoApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
+    [commentApi.reducerPath]: commentApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(videoApi.middleware)
-      .concat(userApi.middleware),
+      .concat(userApi.middleware)
+      .concat(commentApi.middleware),
 });
 
 setupListeners(store.dispatch);

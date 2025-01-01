@@ -97,7 +97,7 @@ function WatchPage() {
                 <SocialActions />
               </VideoInfoAndStats>
               <CommentSection>
-                <AddComment />
+                <AddComment refType={"Video"} refId={id} />
                 <CommentList />
               </CommentSection>
             </VideoSection>

@@ -1,46 +1,103 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { PiPaperPlaneRightFill } from "react-icons/pi";
+import useComment from "../../hooks/useComment.js";
+import { useDispatch, useSelector } from "react-redux";
+import { openLoginModal } from "../../features/global/globalSlice.js";
+import { useGetUserQuery } from "../../api/userApi.js";
 
-function AddComment() {
-  const [text, setText] = useState("");
+function AddComment({ refType = "", refId = "" }) {
+  const loginStatus = useSelector((state) => state.auth.loginStatus);
+  const dispatch = useDispatch();
+
+  // get user
+  const [currentUser, setCurrenUser] = useState(undefined);
+  const { data: user, isError } = useGetUserQuery(
+    localStorage.getItem("accessToken")
+  );
+  useEffect(() => {
+    if (user?.data) {
+      setCurrenUser(user.data);
+    }
+    if (!loginStatus) {
+      setCurrenUser(undefined);
+    }
+  }, [user, loginStatus]);
+
+  
+  const {
+    handleSubmit,
+    register,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const content = watch("content");
+
+  // add comment api call
+  const { addCommentOnSubmit, addCommentError, addCommentLoading } =
+    useComment();
+
+  // to reset comment input field
+  useEffect(() => {
+    if (!addCommentError && !addCommentLoading) {
+      reset();
+    }
+  }, [addCommentError, addCommentLoading]);
+
   return (
     <>
       <div className="flex items-center gap-x-2 bg-gray-100 p-3 rounded-xl">
         <div className="p-0.5">
           <img
-            src="/temp/test-avatar.jpg"
+            src={currentUser?.avatar || "/temp/default-avatar.png"}
             alt=""
             className="w-8 aspect-square object-cover rounded-full"
           />
         </div>
         <div className="flex-1">
-          <form action="" onSubmit={(e) => e.preventDefault()} className="">
+          <form onSubmit={handleSubmit(addCommentOnSubmit)} className="">
             <div className="flex gap-x-1.5">
               <textarea
                 rows="1"
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                className="outline-none border rounded-full px-4 py-1.5 text-xs md:text-sm w-full resize-none"
-                type=""
-                name=""
-                id=""
+                className="outline-none border rounded-full px-4 py-1.5 text-xs md:text-sm w-full resize-none read-only:cursor-pointer"
+                id="content"
                 placeholder="add comment..."
+                readOnly={!loginStatus}
+                {...register("content", { required: true })}
+                onClick={() => {
+                  if (!loginStatus) {
+                    dispatch(openLoginModal());
+                  }
+                }}
+              />
+              <input
+                type="hidden"
+                value={refType}
+                {...register("refType", { required: true })}
+              />
+              <input
+                type="hidden"
+                value={refId}
+                {...register("refId", { required: true })}
               />
               <input
                 type="submit"
                 value="Comment"
                 className="hidden lg:inline bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-sm font-medium px-3 py-2 rounded-full text-white cursor-pointer disabled:cursor-not-allowed"
-                disabled={!text}
+                disabled={!content}
               />
               <input
                 type="reset"
                 value="Cancel"
                 className="hidden lg:inline bg-gray-500 hover:bg-gray-600 text-sm font-medium px-3 py-2 rounded-full text-white cursor-pointer"
+                onClick={() => reset()}
               />
               <button
                 type="submit"
                 className="lg:hidden md:px-1.5 disabled:invisible"
-                disabled={!text}
+                disabled={!content}
               >
                 <PiPaperPlaneRightFill className="text-xl text-blue-600" />
               </button>
