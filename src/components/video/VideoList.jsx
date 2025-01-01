@@ -2,8 +2,12 @@ import React from "react";
 import { VideoCard } from "../index.js";
 
 function VideoList({ videos, ...props }) {
-  if(videos?.length === 0) {
-    return (<><div className="w-max">This channel does not have any videos</div></>)
+  if (videos?.length === 0) {
+    return (
+      <>
+        <div className="w-max">This channel does not have any videos</div>
+      </>
+    );
   }
   return (
     <>
@@ -16,6 +20,8 @@ function VideoList({ videos, ...props }) {
           title={video.title}
           channelname={video?.owner?.username}
           views={video?.views}
+          duration={video.duration}
+          createdAt={video?.createdAt}
           {...props}
         />
       ))}
