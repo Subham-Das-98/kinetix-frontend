@@ -12,7 +12,7 @@ function AddComment({ refType = "", refId = "" }) {
 
   // get user
   const [currentUser, setCurrenUser] = useState(undefined);
-  const { data: user, isError } = useGetUserQuery(
+  const { data: user } = useGetUserQuery(
     localStorage.getItem("accessToken")
   );
   useEffect(() => {
@@ -36,15 +36,15 @@ function AddComment({ refType = "", refId = "" }) {
   const content = watch("content");
 
   // add comment api call
-  const { addCommentOnSubmit, addCommentError, addCommentLoading } =
+  const { addCommentOnSubmit, addCommentState: {isError, isLoading} } =
     useComment();
 
   // to reset comment input field
   useEffect(() => {
-    if (!addCommentError && !addCommentLoading) {
+    if (!isError && !isLoading) {
       reset();
     }
-  }, [addCommentError, addCommentLoading]);
+  }, [isError, isLoading]);
 
   return (
     <>

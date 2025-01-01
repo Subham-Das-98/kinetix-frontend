@@ -1,7 +1,7 @@
 import { useAddCommentMutation } from "../api/commentApi.js";
 
 function useComment() {
-  const [addComment, { isError: addCommentError, isLoading: addCommentLoading, isSuccess: addCommentSuccess }] =
+  const [addComment, { isError, isLoading, isSuccess }] =
     useAddCommentMutation();
 
   const addCommentOnSubmit = async (data) => {
@@ -13,7 +13,7 @@ function useComment() {
     }
   };
 
-  return { addCommentOnSubmit, addCommentError, addCommentLoading, addCommentSuccess };
+  return { addCommentOnSubmit, addCommentState: {isError, isLoading, isSuccess} };
 }
 
 export default useComment;
