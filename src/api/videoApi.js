@@ -14,10 +14,10 @@ const videoApi = createApi({
       query: () => "/recommend/videos",
     }),
     getVideoById: builder.query({
-      query: ({ username, id }) => `/watch/${username}/v_id/${id}`,
+      query: ({ channelName, id }) => `/watch/${channelName}/v_id/${id}`,
     }),
     getAllVideosByChannelName: builder.query({
-      query: (username) => `/channel/${username}/videos`,
+      query: (channelName) => `/channel/${channelName}/videos`,
     }),
     uploadVideo: builder.mutation({
       queryFn: async ({ username, data, accessToken }, api) => {

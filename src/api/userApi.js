@@ -48,7 +48,7 @@ const userApi = createApi({
       }),
     }),
     getChannelInfoAndStats: builder.query({
-      query: (username) => `/channel/${username}`,
+      query: ({channelName, userId}) => `/channel/${channelName}`,
     }),
     getUser: builder.query({
       query:(accessToken) => ({

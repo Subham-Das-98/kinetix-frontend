@@ -32,20 +32,23 @@ import useAuth from "../../hooks/useAuth.js";
 // main component
 function WatchPage() {
   const dispatch = useDispatch();
-  const { username, id } = useParams();
+  const { username: channelName, id } = useParams();
 
   // for login modal
   const isLoginModalOpen = useSelector((state) => state.global.isLoginModalOpen);
+
+  // to check if channel is subscribed or not
+  const userId = useSelector((state) => state.auth.user?.id);
 
   // fetch video by id
   const {
     data: video,
     error: videoError,
     isLoading: videoIsLoading,
-  } = useGetVideoByIdQuery({ username, id });
+  } = useGetVideoByIdQuery({ channelName, id });
 
   // fetch channel info
-  const { data: channel } = useGetChannelInfoAndStatsQuery(username);
+  const { data: channel } = useGetChannelInfoAndStatsQuery({channelName, userId});
 
   // fetch recommended videos
   const {

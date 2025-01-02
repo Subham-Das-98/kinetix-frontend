@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import { BsDot } from "react-icons/bs";
 import { useGetChannelInfoAndStatsQuery } from "../../api/userApi";
+
 
 function Banner({ coverImage }) {
   return (
@@ -115,8 +117,11 @@ function ChannelPageNavBar() {
 }
 
 function ChannelLayout() {
-  const { username } = useParams();
-  const { data: channel } = useGetChannelInfoAndStatsQuery(username);
+  const { username: channelName } = useParams();
+  // to check if channel is subscribed or not
+  const userId = useSelector((state) => state.auth.user?.id);
+
+  const { data: channel } = useGetChannelInfoAndStatsQuery({channelName, userId});
   useEffect(() => {
     // console.log(channel);
   }, [channel]);

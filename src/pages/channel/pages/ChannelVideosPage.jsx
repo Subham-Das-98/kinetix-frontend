@@ -4,12 +4,12 @@ import { useGetAllVideosByChannelNameQuery } from "../../../api/videoApi";
 import { useParams } from "react-router-dom";
 
 function ChannelVideosPage() {
-  const { username } = useParams();
+  const { username: channelName } = useParams();
   const {
     data: videos,
     error,
     isLoading,
-  } = useGetAllVideosByChannelNameQuery(username);
+  } = useGetAllVideosByChannelNameQuery(channelName);
 
   return (
     <div className="mt-3 mb-20">

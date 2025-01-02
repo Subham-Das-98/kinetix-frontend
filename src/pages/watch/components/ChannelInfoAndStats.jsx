@@ -31,6 +31,9 @@ function ChannelInfoAndStats({
             <button className="bg-gray-900 hover:bg-gray-800 text-white font-medium text-sm px-2.5 py-1.5 lg:text-base lg:px-3.5 rounded-full">
               Subscribe
             </button>
+            <button className="bg-gray-900 hover:bg-gray-800 text-white font-medium text-sm px-2.5 py-1.5 lg:text-base lg:px-3.5 rounded-full">
+              Unsubscribe
+            </button>
           </div>
         </div>
       </div>
