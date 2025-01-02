@@ -1,11 +1,20 @@
-import React from 'react'
+import React from "react";
 import { NavLink } from "react-router-dom";
+import useSubscription from "../../../hooks/useSubscription.js";
+import { useSelector, useDispatch } from "react-redux";
+import { openLoginModal } from "../../../features/global/globalSlice";
 
 function ChannelInfoAndStats({
   channel = "",
   profile = "",
   subscribersCount = "",
+  isSubscribed = false,
+  refetch = () => {},
 }) {
+  const dispatch = useDispatch();
+  const loginStatus = useSelector((state) => state.auth.loginStatus);
+  const { subscribeOnClick, unsubscribeOnClick } = useSubscription();
+
   return (
     <>
       <div className="flex items-center gap-x-5 mt-3">
@@ -28,12 +37,34 @@ function ChannelInfoAndStats({
             </div>
           </div>
           <div>
-            <button className="bg-gray-900 hover:bg-gray-800 text-white font-medium text-sm px-2.5 py-1.5 lg:text-base lg:px-3.5 rounded-full">
-              Subscribe
-            </button>
-            <button className="bg-gray-900 hover:bg-gray-800 text-white font-medium text-sm px-2.5 py-1.5 lg:text-base lg:px-3.5 rounded-full">
-              Unsubscribe
-            </button>
+            {!isSubscribed && (
+              <button
+                className="bg-gray-900 hover:bg-gray-800 text-white font-medium text-sm px-2.5 py-1.5 lg:text-base lg:px-3.5 rounded-full"
+                onClick={() => {
+                  if (loginStatus) {
+                    subscribeOnClick(refetch);
+                  } else {
+                    dispatch(openLoginModal());
+                  }
+                }}
+              >
+                Subscribe
+              </button>
+            )}
+            {isSubscribed && (
+              <button
+                className="bg-gray-900 hover:bg-gray-800 text-white font-medium text-sm px-2.5 py-1.5 lg:text-base lg:px-3.5 rounded-full"
+                onClick={() => {
+                  if (loginStatus) {
+                    unsubscribeOnClick(refetch);
+                  } else {
+                    dispatch(openLoginModal());
+                  }
+                }}
+              >
+                Unsubscribe
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -41,4 +72,4 @@ function ChannelInfoAndStats({
   );
 }
 
-export default ChannelInfoAndStats
+export default ChannelInfoAndStats;

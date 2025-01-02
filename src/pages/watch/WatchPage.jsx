@@ -48,7 +48,7 @@ function WatchPage() {
   } = useGetVideoByIdQuery({ channelName, id });
 
   // fetch channel info
-  const { data: channel } = useGetChannelInfoAndStatsQuery({channelName, userId});
+  const { data: channel, refetch } = useGetChannelInfoAndStatsQuery({channelName, userId});
 
   // fetch recommended videos
   const {
@@ -96,6 +96,8 @@ function WatchPage() {
                   channel={channel?.data.username}
                   profile={channel?.data.avatar}
                   subscribersCount={channel?.data.subscribersCount}
+                  isSubscribed={channel?.data.isSubscribed}
+                  refetch={refetch}
                 />
                 <SocialActions />
               </VideoInfoAndStats>

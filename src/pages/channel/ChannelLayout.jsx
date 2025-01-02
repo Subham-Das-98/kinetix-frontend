@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import { BsDot } from "react-icons/bs";
 import { useGetChannelInfoAndStatsQuery } from "../../api/userApi";
-
+import useSubscription from "../../hooks/useSubscription";
+import { openLoginModal } from "../../features/global/globalSlice";
 
 function Banner({ coverImage }) {
   return (
@@ -25,7 +26,13 @@ function InfoAndStats({
   subscribersCount = "",
   videosCount = "",
   fullName = "",
+  isSubscribed = false,
+  refetch = () => {},
 }) {
+  const dispatch = useDispatch();
+  const loginStatus = useSelector((state) => state.auth.loginStatus);
+  const { subscribeOnClick, unsubscribeOnClick } = useSubscription();
+
   return (
     <>
       <div className="flex gap-5 mt-3 lg:mt-5 mx-2.5 lg:mx-0">
@@ -48,9 +55,34 @@ function InfoAndStats({
             <span>{videosCount} videos</span>
           </div>
           <div className="mt-2">
-            <button className="bg-gray-900 hover:bg-gray-800 text-white font-semibold text-sm px-2.5 py-1 lg:text-base lg:px-3.5 lg:py-1.5 rounded-full">
-              Subscribe
-            </button>
+            {!isSubscribed && (
+              <button
+                className="bg-gray-900 hover:bg-gray-800 text-white font-semibold text-sm px-2.5 py-1 lg:text-base lg:px-3.5 lg:py-1.5 rounded-full"
+                onClick={() => {
+                  if (loginStatus) {
+                    subscribeOnClick(refetch);
+                  } else {
+                    dispatch(openLoginModal());
+                  }
+                }}
+              >
+                Subscribe
+              </button>
+            )}
+            {isSubscribed && (
+              <button
+                className="bg-gray-900 hover:bg-gray-800 text-white font-semibold text-sm px-2.5 py-1 lg:text-base lg:px-3.5 lg:py-1.5 rounded-full"
+                onClick={() => {
+                  if (loginStatus) {
+                    unsubscribeOnClick(refetch);
+                  } else {
+                    dispatch(openLoginModal());
+                  }
+                }}
+              >
+                Unsubscribe
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -98,9 +130,7 @@ function ChannelPageNavBar() {
               <NavLink
                 to={link.slug}
                 className={(isActive) =>
-                  isActive &&
-                  location.pathname ===
-                    link.slug
+                  isActive && location.pathname === link.slug
                     ? "block border-b-2 border-b-gray-900 text-black"
                     : "block hover:border-b-2 hover:border-b-gray-400"
                 }
@@ -121,10 +151,10 @@ function ChannelLayout() {
   // to check if channel is subscribed or not
   const userId = useSelector((state) => state.auth.user?.id);
 
-  const { data: channel } = useGetChannelInfoAndStatsQuery({channelName, userId});
-  useEffect(() => {
-    // console.log(channel);
-  }, [channel]);
+  const { data: channel, refetch } = useGetChannelInfoAndStatsQuery({
+    channelName,
+    userId,
+  });
 
   if (!channel) {
     return (
@@ -146,6 +176,8 @@ function ChannelLayout() {
           subscribersCount={channel?.data.subscribersCount}
           videosCount="9"
           fullName={channel?.data.fullName}
+          isSubscribed={channel?.data.isSubscribed}
+          refetch={refetch}
         />
         <ChannelPageNavBar />
         <Outlet />
