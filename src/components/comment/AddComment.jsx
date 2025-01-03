@@ -82,11 +82,12 @@ function AddComment({ refType = "", refId = "" }) {
                 value={refId}
                 {...register("refId", { required: true })}
               />
+              {/* submit for larger screen */}
               <input
                 type="submit"
                 value="Comment"
                 className="hidden lg:inline bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-sm font-medium px-3 py-2 rounded-full text-white cursor-pointer disabled:cursor-not-allowed"
-                disabled={!content}
+                disabled={!content || isLoading}
               />
               <input
                 type="reset"
@@ -94,10 +95,11 @@ function AddComment({ refType = "", refId = "" }) {
                 className="hidden lg:inline bg-gray-500 hover:bg-gray-600 text-sm font-medium px-3 py-2 rounded-full text-white cursor-pointer"
                 onClick={() => reset()}
               />
+              {/* submit for mobile devices */}
               <button
                 type="submit"
                 className="lg:hidden md:px-1.5 disabled:invisible"
-                disabled={!content}
+                disabled={!content || isLoading}
               >
                 <PiPaperPlaneRightFill className="text-xl text-blue-600" />
               </button>

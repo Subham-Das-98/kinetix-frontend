@@ -24,7 +24,7 @@ function useSubscription() {
       // console.log(response);
       refetch();
     } catch (error) {
-      console.log(error);
+      console.log("SUBSCRIBE CHANNEL ERROR:: ",error);
     }
   };
 
@@ -45,7 +45,7 @@ function useSubscription() {
       // console.log(response);
       refetch();
     } catch (error) {
-      console.log(error);
+      console.log("UNSUBSCRIBE CHANNEL ERROR:: ",error);
     }
   };
 

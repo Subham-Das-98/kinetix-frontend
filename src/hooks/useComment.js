@@ -7,7 +7,7 @@ function useComment() {
   const addCommentOnSubmit = async (data) => {
     try {
       const response = await addComment({ ...data, accessToken: localStorage.getItem("accessToken") });
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log("COMMENT ADD ERROR:: ", error);
     }
