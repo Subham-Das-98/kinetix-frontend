@@ -1,7 +1,17 @@
 import React, { useRef, useState } from "react";
+import { formatDistanceToNow } from "date-fns";
 import { BsDot } from "react-icons/bs";
 
-function VideoInfoAndStats({ title = "", children }) {
+function VideoInfoAndStats({
+  children,
+  title = "",
+  thumbnail = "",
+  description = "",
+  genre = "",
+  views = 0,
+  tags = [],
+  createdAt = "",
+}) {
   const [showDesc, setShowDesc] = useState(false);
   const descRef = useRef();
   function toggleDescription() {
@@ -20,19 +30,24 @@ function VideoInfoAndStats({ title = "", children }) {
         <div className="mx-3 md:mx-0 md:ml-3 lg:ml-0">{children}</div>
         <div className="bg-gray-100 p-3 rounded-xl my-3 mx-3 md:mx-0 md:ml-3 lg:ml-0">
           <div>
-            <span className="text-sm font-medium">16M views</span>
+            <span className="text-sm font-medium">{views} views</span>
             <BsDot className="inline text-xs text-gray-600" />
-            <span className="text-sm font-medium">1 year ago</span>
+            <span className="text-sm font-medium">
+              {formatDistanceToNow(new Date(createdAt), {
+                addSuffix: true,
+              }).replace("about", "")}
+            </span>
           </div>
           <div ref={descRef} className="hidden pr-5">
-            <p>
-              Join us on a breathtaking journey through lush forests, majestic
-              mountains, and serene lakes. This video showcases the wonders of
-              nature captured in stunning 4K resolution. Sit back, relax, and
-              immerse yourself in the tranquility of the natural world.
-            </p>
-            <h1>Travel & Nature </h1>
-            <h1>#Nature #Travel #4KVideo #Relaxation</h1>
+            <p>{description}</p>
+            <h1>{genre}</h1>
+            <h1>
+              <ul>
+                {tags?.map((tag) => (
+                  <li key={tag}>{tag}</li>
+                ))}
+              </ul>
+            </h1>
           </div>
           <button className="text-sm font-semibold" onClick={toggleDescription}>
             {showDesc ? "...show less" : "...show more"}

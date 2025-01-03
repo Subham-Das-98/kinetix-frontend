@@ -26,7 +26,10 @@ import {
 import { useGetChannelInfoAndStatsQuery } from "../../api/userApi.js";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { openLoginModal, closeLoginModal } from "../../features/global/globalSlice.js";
+import {
+  openLoginModal,
+  closeLoginModal,
+} from "../../features/global/globalSlice.js";
 import useAuth from "../../hooks/useAuth.js";
 
 // main component
@@ -35,7 +38,9 @@ function WatchPage() {
   const { username: channelName, id } = useParams();
 
   // for login modal
-  const isLoginModalOpen = useSelector((state) => state.global.isLoginModalOpen);
+  const isLoginModalOpen = useSelector(
+    (state) => state.global.isLoginModalOpen
+  );
 
   // to check if channel is subscribed or not
   const userId = useSelector((state) => state.auth.user?.id);
@@ -48,7 +53,10 @@ function WatchPage() {
   } = useGetVideoByIdQuery({ channelName, id });
 
   // fetch channel info
-  const { data: channel, refetch } = useGetChannelInfoAndStatsQuery({channelName, userId});
+  const { data: channel, refetch } = useGetChannelInfoAndStatsQuery({
+    channelName,
+    userId,
+  });
 
   // fetch recommended videos
   const {
@@ -91,7 +99,15 @@ function WatchPage() {
           >
             <VideoSection>
               <VideoPlayer video={video} />
-              <VideoInfoAndStats title={video?.data.title}>
+              <VideoInfoAndStats
+                thumbnail={video?.data.thumbnail}
+                title={video?.data.title}
+                views={video?.data.views}
+                description={video?.data.description}
+                tags={video?.data.tags}
+                genre={video?.data.genre}
+                createdAt={video?.data.createdAt}
+              >
                 <ChannelInfoAndStats
                   channel={channel?.data.username}
                   profile={channel?.data.avatar}

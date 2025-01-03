@@ -10,7 +10,7 @@ function VideoCard({
   profile = "",
   title = "",
   channelname = "",
-  views = "0",
+  views = 0,
   duration = "00:00",
   createdAt = "",
   hideProfile = false,
