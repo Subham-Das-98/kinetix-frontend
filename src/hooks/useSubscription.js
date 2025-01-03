@@ -6,35 +6,63 @@ import {
 
 function useSubscription() {
   const { username: channelName } = useParams();
-  const [subscribeChannel] = useSubscribeChannelMutation();
+
+  const [
+    subscribeChannel,
+    {
+      isLoading: subscribeIsLoading,
+      isSuccess: subscribeIsSuccess,
+      isError: subscribeIsError,
+    },
+  ] = useSubscribeChannelMutation();
   const subscribeOnClick = async (refetch) => {
     try {
       const response = await subscribeChannel({
         channelName,
         accessToken: localStorage.getItem("accessToken"),
       });
-      console.log(response);
+      // console.log(response);
       refetch();
     } catch (error) {
       console.log(error);
     }
   };
 
-  const [unsubscribeChannel] = useUnsubscribeChannelMutation();
+  const [
+    unsubscribeChannel,
+    {
+      isLoading: unsubscribeIsLoading,
+      isSuccess: unsubscribeIsSuccess,
+      isError: unsubscribeIsError,
+    },
+  ] = useUnsubscribeChannelMutation();
   const unsubscribeOnClick = async (refetch) => {
     try {
       const response = await unsubscribeChannel({
         channelName,
         accessToken: localStorage.getItem("accessToken"),
       });
-      console.log(response);
+      // console.log(response);
       refetch();
     } catch (error) {
       console.log(error);
     }
   };
 
-  return { subscribeOnClick, unsubscribeOnClick };
+  return {
+    subscribeOnClick,
+    unsubscribeOnClick,
+    subscribeState: {
+      isLoading: subscribeIsLoading,
+      isSuccess: subscribeIsSuccess,
+      isError: subscribeIsError,
+    },
+    unsubscribeState: {
+      isLoading: unsubscribeIsLoading,
+      isSuccess: unsubscribeIsSuccess,
+      isError: unsubscribeIsError,
+    },
+  };
 }
 
 export default useSubscription;

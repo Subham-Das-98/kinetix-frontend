@@ -13,7 +13,16 @@ function ChannelInfoAndStats({
 }) {
   const dispatch = useDispatch();
   const loginStatus = useSelector((state) => state.auth.loginStatus);
-  const { subscribeOnClick, unsubscribeOnClick } = useSubscription();
+  const {
+    subscribeOnClick,
+    unsubscribeOnClick,
+    subscribeState: {
+      isLoading: subscribeIsLoading,
+    },
+    unsubscribeState: {
+      isLoading: unsubscribeIsLoading,
+    },
+  } = useSubscription();
 
   return (
     <>
@@ -47,6 +56,7 @@ function ChannelInfoAndStats({
                     dispatch(openLoginModal());
                   }
                 }}
+                disabled={subscribeIsLoading}
               >
                 Subscribe
               </button>
@@ -61,7 +71,8 @@ function ChannelInfoAndStats({
                     dispatch(openLoginModal());
                   }
                 }}
-              >
+                disabled={unsubscribeIsLoading}
+              > 
                 Unsubscribe
               </button>
             )}
