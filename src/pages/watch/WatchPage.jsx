@@ -60,7 +60,7 @@ function WatchPage() {
   // scroll to top on every render
   useEffect(() => {
     window.scrollTo({ top: 0 });
-  });
+  }, [video]);
 
   // try to authenticate on first render
   const isAuthenticated = useSelector((state) => state.global.isAuthenticated);
