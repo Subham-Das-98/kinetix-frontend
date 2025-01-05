@@ -26,7 +26,7 @@ const userApi = createApi({
         url: "/user/logout",
         method: "POST",
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${accessToken || ""}`,
         },
       }),
     }),
@@ -43,7 +43,7 @@ const userApi = createApi({
         url: "/user/validate/access-token",
         method: "POST",
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${accessToken || ""}`,
         },
       }),
     }),
@@ -54,7 +54,7 @@ const userApi = createApi({
       query:(accessToken) => ({
         url: "/user/current-user",
         headers: {
-          Authorization: `Bearer ${accessToken}`
+          Authorization: `Bearer ${accessToken || ""}`
         }
       })
     })
