@@ -23,7 +23,7 @@ function useImpression() {
         refId,
         accessToken: localStorage.getItem("accessToken"),
       });
-      console.log(response);
+      // console.log(response);
       refetch();
     } catch (error) {
       console.log("ADD LIKE ERROR:: ", error);
@@ -47,7 +47,7 @@ function useImpression() {
         refId,
         accessToken: localStorage.getItem("accessToken"),
       });
-      console.log(response);
+      // console.log(response);
       refetch();
     } catch (error) {
       console.log("DELETE LIKE ERROR:: ", error);
@@ -71,7 +71,7 @@ function useImpression() {
         refId,
         accessToken: localStorage.getItem("accessToken"),
       });
-      console.log(response);
+      // console.log(response);
       refetch();
     } catch (error) {
       console.log("ADD DISLIKE ERROR:: ", error);
@@ -95,7 +95,7 @@ function useImpression() {
         refId,
         accessToken: localStorage.getItem("accessToken"),
       });
-      console.log(response);
+      // console.log(response);
       refetch();
     } catch (error) {
       console.log("DELETE DISLIKE ERROR:: ", error);
