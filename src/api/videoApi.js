@@ -14,7 +14,12 @@ const videoApi = createApi({
       query: () => "/recommend/videos",
     }),
     getVideoById: builder.query({
-      query: ({ channelName, id }) => `/watch/${channelName}/v_id/${id}`,
+      query: ({ channelName, id, accessToken }) => ({
+        url: `/watch/${channelName}/v_id/${id}`,
+        headers: {
+          Authorization: `Bearer ${accessToken || ""}`,
+        },
+      }),
     }),
     getAllVideosByChannelName: builder.query({
       query: (channelName) => `/channel/${channelName}/videos`,

@@ -50,10 +50,11 @@ function WatchPage() {
     data: video,
     error: videoError,
     isLoading: videoIsLoading,
-  } = useGetVideoByIdQuery({ channelName, id });
+    refetch: refetchVideo
+  } = useGetVideoByIdQuery({ channelName, id, accessToken: localStorage.getItem("accessToken") });
 
   // fetch channel info
-  const { data: channel, refetch } = useGetChannelInfoAndStatsQuery({
+  const { data: channel, refetch: refetchChannelInfoAndStats } = useGetChannelInfoAndStatsQuery({
     channelName,
     userId,
   });
@@ -65,10 +66,10 @@ function WatchPage() {
     isLoading: videosIsLoading,
   } = useGetVideosByRecommendationQuery();
 
-  // scroll to top on every render
+  // scroll to top on if videoFile changes
   useEffect(() => {
     window.scrollTo({ top: 0 });
-  }, [video]);
+  }, [video?.data.videoFile]);
 
   // try to authenticate on first render
   const isAuthenticated = useSelector((state) => state.global.isAuthenticated);
@@ -113,9 +114,15 @@ function WatchPage() {
                   profile={channel?.data.avatar}
                   subscribersCount={channel?.data.subscribersCount}
                   isSubscribed={channel?.data.isSubscribed}
-                  refetch={refetch}
+                  refetch={refetchChannelInfoAndStats}
                 />
-                <SocialActions />
+                <SocialActions
+                  likesCount={video?.data.likesCount}
+                  dislikesCount={video?.data.dislikesCount}
+                  hasLiked={video?.data.hasLiked}
+                  hasDisliked={video?.data.hasDisliked}
+                  refetch={refetchVideo}
+                />
               </VideoInfoAndStats>
               <CommentSection>
                 <AddComment refType={"Video"} refId={id} />
