@@ -3,7 +3,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_SERVER_API_HOSTNAME}:${import.meta.env.VITE_SERVER_API_PORT}/api/v1`,
+    baseUrl: `${import.meta.env.VITE_SERVER_API_HOSTNAME}:${
+      import.meta.env.VITE_SERVER_API_PORT
+    }/api/v1`,
   }),
   endpoints: (builder) => ({
     createUser: builder.mutation({
@@ -48,16 +50,21 @@ const userApi = createApi({
       }),
     }),
     getChannelInfoAndStats: builder.query({
-      query: ({channelName, userId}) => `/channel/${channelName}?subscriber=${userId || ""}`,
+      query: ({ channelName, accessToken }) => ({
+        url: `/channel/${channelName}`,
+        headers: {
+          Authorization: `Bearer ${accessToken || ""}`,
+        },
+      }),
     }),
     getUser: builder.query({
-      query:(accessToken) => ({
+      query: (accessToken) => ({
         url: "/user/current-user",
         headers: {
-          Authorization: `Bearer ${accessToken || ""}`
-        }
-      })
-    })
+          Authorization: `Bearer ${accessToken || ""}`,
+        },
+      }),
+    }),
   }),
 });
 
@@ -68,7 +75,7 @@ export const {
   useLogoutUserMutation,
   useRefreshAccessTokenMutation,
   useValidateAccessTokenMutation,
-  useGetUserQuery
+  useGetUserQuery,
 } = userApi;
 
 export default userApi;

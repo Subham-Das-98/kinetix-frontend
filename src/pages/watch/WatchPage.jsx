@@ -42,9 +42,6 @@ function WatchPage() {
     (state) => state.global.isLoginModalOpen
   );
 
-  // to check if channel is subscribed or not
-  const userId = useSelector((state) => state.auth.user?.id);
-
   // fetch video by id
   const {
     data: video,
@@ -56,7 +53,7 @@ function WatchPage() {
   // fetch channel info
   const { data: channel, refetch: refetchChannelInfoAndStats } = useGetChannelInfoAndStatsQuery({
     channelName,
-    userId,
+    accessToken: localStorage.getItem("accessToken"),
   });
 
   // fetch recommended videos

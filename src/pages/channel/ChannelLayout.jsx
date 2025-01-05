@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import { BsDot } from "react-icons/bs";
@@ -148,13 +148,17 @@ function ChannelPageNavBar() {
 
 function ChannelLayout() {
   const { username: channelName } = useParams();
-  // to check if channel is subscribed or not
-  const userId = useSelector((state) => state.auth.user?.id);
 
   const { data: channel, refetch } = useGetChannelInfoAndStatsQuery({
     channelName,
-    userId,
+    accessToken: localStorage.getItem("accessToken"),
   });
+
+  // if user logout refetch channelinfoandstatus
+  const authState = useSelector(state => state.auth);
+  useEffect(() => {
+    refetch();
+  }, [authState])
 
   if (!channel) {
     return (
