@@ -24,7 +24,7 @@ function InfoAndStats({
   profile = "",
   channelName = "",
   subscribersCount = "",
-  videosCount = "",
+  videosCount = 0,
   fullName = "",
   isSubscribed = false,
   refetch = () => {},
@@ -178,7 +178,7 @@ function ChannelLayout() {
           profile={channel?.data.avatar || "/temp/default-avatar.png"}
           channelName={channel?.data.username || null}
           subscribersCount={channel?.data.subscribersCount}
-          videosCount="9"
+          videosCount={channel?.data.videosCount}
           fullName={channel?.data.fullName}
           isSubscribed={channel?.data.isSubscribed}
           refetch={refetch}
