@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 // global components
 import {
@@ -24,8 +26,8 @@ import {
   useGetVideosByRecommendationQuery,
 } from "../../api/videoApi.js";
 import { useGetChannelInfoAndStatsQuery } from "../../api/userApi.js";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useGetAllCommentsByRefIdQuery } from "../../api/commentApi.js";
+
 import {
   openLoginModal,
   closeLoginModal,
@@ -47,14 +49,27 @@ function WatchPage() {
     data: video,
     error: videoError,
     isLoading: videoIsLoading,
-    refetch: refetchVideo
-  } = useGetVideoByIdQuery({ channelName, id, accessToken: localStorage.getItem("accessToken") });
-
-  // fetch channel info
-  const { data: channel, refetch: refetchChannelInfoAndStats } = useGetChannelInfoAndStatsQuery({
+    refetch: refetchVideo,
+  } = useGetVideoByIdQuery({
     channelName,
+    id,
     accessToken: localStorage.getItem("accessToken"),
   });
+
+  // fetch channel info
+  const { data: channel, refetch: refetchChannelInfoAndStats } =
+    useGetChannelInfoAndStatsQuery({
+      channelName,
+      accessToken: localStorage.getItem("accessToken"),
+    });
+
+  // fetch comments
+  const {
+    data: comments,
+    error: commentsError,
+    isLoading: commentsIsLoading,
+    refetch
+  } = useGetAllCommentsByRefIdQuery(id);
 
   // fetch recommended videos
   const {
@@ -122,13 +137,15 @@ function WatchPage() {
                 />
               </VideoInfoAndStats>
               <CommentSection>
-                <AddComment refType={"Video"} refId={id} />
-                <CommentList />
+                <AddComment refType={"Video"} refId={id} refetch={refetch} />
+                {commentsIsLoading && <div>loading...</div>}
+                {commentsError && <div>ERROR:: {commentsError.error}</div>}
+                {comments && <CommentList comments={comments.data} />}
               </CommentSection>
             </VideoSection>
             <RecommendVideoSection>
               {videosIsLoading && <div>loading...</div>}
-              {videosError && <div>ERROR::{videosError.error}</div>}
+              {videosError && <div>ERROR:: {videosError.error}</div>}
               {videos && (
                 <VideoList
                   videos={videos.data}

@@ -6,15 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { openLoginModal } from "../../features/global/globalSlice.js";
 import { useGetUserQuery } from "../../api/userApi.js";
 
-function AddComment({ refType = "", refId = "" }) {
+function AddComment({ refType = "", refId = "", refetch = () => {} }) {
   const loginStatus = useSelector((state) => state.auth.loginStatus);
   const dispatch = useDispatch();
 
   // get user
   const [currentUser, setCurrenUser] = useState(undefined);
-  const { data: user } = useGetUserQuery(
-    localStorage.getItem("accessToken")
-  );
+  const { data: user } = useGetUserQuery(localStorage.getItem("accessToken"));
   useEffect(() => {
     if (user?.data) {
       setCurrenUser(user.data);
@@ -24,7 +22,6 @@ function AddComment({ refType = "", refId = "" }) {
     }
   }, [user, loginStatus]);
 
-  
   const {
     handleSubmit,
     register,
@@ -36,13 +33,16 @@ function AddComment({ refType = "", refId = "" }) {
   const content = watch("content");
 
   // add comment api call
-  const { addCommentOnSubmit, addCommentState: {isError, isLoading} } =
-    useComment();
+  const {
+    addCommentOnSubmit,
+    addCommentState: { isError, isLoading },
+  } = useComment();
 
-  // to reset comment input field
+  // to reset comment input field and fetch updated comment list
   useEffect(() => {
     if (!isError && !isLoading) {
       reset();
+      refetch();
     }
   }, [isError, isLoading]);
 
