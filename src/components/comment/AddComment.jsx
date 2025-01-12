@@ -1,26 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { PiPaperPlaneRightFill } from "react-icons/pi";
 import useComment from "../../hooks/useComment.js";
 import { useDispatch, useSelector } from "react-redux";
 import { openLoginModal } from "../../features/global/globalSlice.js";
-import { useGetUserQuery } from "../../api/userApi.js";
 
-function AddComment({ refType = "", refId = "", refetch = () => {} }) {
+function AddComment({
+  user = undefined,
+  refType = "",
+  refId = "",
+  refetch = () => {},
+}) {
   const loginStatus = useSelector((state) => state.auth.loginStatus);
   const dispatch = useDispatch();
-
-  // get user
-  const [currentUser, setCurrenUser] = useState(undefined);
-  const { data: user } = useGetUserQuery(localStorage.getItem("accessToken"));
-  useEffect(() => {
-    if (user?.data) {
-      setCurrenUser(user.data);
-    }
-    if (!loginStatus) {
-      setCurrenUser(undefined);
-    }
-  }, [user, loginStatus]);
 
   const {
     handleSubmit,
@@ -35,12 +27,12 @@ function AddComment({ refType = "", refId = "", refetch = () => {} }) {
   // add comment api call
   const {
     addCommentOnSubmit,
-    addCommentState: { isError, isLoading },
+    addCommentState: { isError, isLoading, isSuccess },
   } = useComment();
 
   // to reset comment input field and fetch updated comment list
   useEffect(() => {
-    if (!isError && !isLoading) {
+    if (!isError && !isLoading && isSuccess) {
       reset();
       refetch();
     }
@@ -51,7 +43,7 @@ function AddComment({ refType = "", refId = "", refetch = () => {} }) {
       <div className="flex items-center gap-x-2 bg-gray-100 p-3 rounded-xl">
         <div className="p-0.5">
           <img
-            src={currentUser?.avatar || "/temp/default-avatar.png"}
+            src={loginStatus ? user?.avatar : "/temp/default-avatar.png"}
             alt=""
             className="w-8 aspect-square object-cover rounded-full"
           />

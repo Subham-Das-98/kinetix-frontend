@@ -25,7 +25,10 @@ import {
   useGetVideoByIdQuery,
   useGetVideosByRecommendationQuery,
 } from "../../api/videoApi.js";
-import { useGetChannelInfoAndStatsQuery } from "../../api/userApi.js";
+import {
+  useGetChannelInfoAndStatsQuery,
+  useGetUserQuery,
+} from "../../api/userApi.js";
 import { useGetAllCommentsByRefIdQuery } from "../../api/commentApi.js";
 
 import {
@@ -63,12 +66,18 @@ function WatchPage() {
       accessToken: localStorage.getItem("accessToken"),
     });
 
+  // get user
+  const loginStatus = useSelector((state) => state.auth.loginStatus);
+  const { data: user } = useGetUserQuery(localStorage.getItem("accessToken"), {
+    skip: !loginStatus,
+  });
+
   // fetch comments
   const {
     data: comments,
     error: commentsError,
     isLoading: commentsIsLoading,
-    refetch
+    refetch: refetchComments,
   } = useGetAllCommentsByRefIdQuery(id);
 
   // fetch recommended videos
@@ -137,7 +146,12 @@ function WatchPage() {
                 />
               </VideoInfoAndStats>
               <CommentSection>
-                <AddComment refType={"Video"} refId={id} refetch={refetch} />
+                <AddComment
+                  user={user?.data}
+                  refType={"Video"}
+                  refId={id}
+                  refetch={refetchComments}
+                />
                 {commentsIsLoading && <div>loading...</div>}
                 {commentsError && <div>ERROR:: {commentsError.error}</div>}
                 {comments && <CommentList comments={comments.data} />}
