@@ -92,6 +92,12 @@ function WatchPage() {
     window.scrollTo({ top: 0 });
   }, [video?.data.videoFile]);
 
+  // when user login status changed refetch video to show updated video info and channle info
+  useEffect(() => {
+    refetchVideo();
+    refetchChannelInfoAndStats();
+  }, [loginStatus]);
+
   // try to authenticate on first render
   const isAuthenticated = useSelector((state) => state.global.isAuthenticated);
   const { initializeAuth } = useAuth();
