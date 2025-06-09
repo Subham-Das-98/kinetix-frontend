@@ -3,8 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const impressionApi = createApi({
   reducerPath: "impressionApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_SERVER_API_HOSTNAME}:${
-      import.meta.env.VITE_SERVER_API_PORT
+    baseUrl: `${import.meta.env.VITE_NODE_SERVER_HOSTNAME}:${
+      import.meta.env.VITE_NODE_SERVER_PORT
     }/api/v1`,
   }),
   endpoints: (builder) => ({
@@ -51,7 +51,7 @@ export const {
   useAddLikeMutation,
   useAddDislikeMutation,
   useDeleteLikeMutation,
-  useDeleteDislikeMutation
+  useDeleteDislikeMutation,
 } = impressionApi;
 
 export default impressionApi;

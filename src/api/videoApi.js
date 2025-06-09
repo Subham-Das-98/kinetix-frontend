@@ -5,8 +5,8 @@ import { setUploadProgress } from "../features/global/globalSlice";
 const videoApi = createApi({
   reducerPath: "videoApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_SERVER_API_HOSTNAME}:${
-      import.meta.env.VITE_SERVER_API_PORT
+    baseUrl: `${import.meta.env.VITE_NODE_SERVER_HOSTNAME}:${
+      import.meta.env.VITE_NODE_SERVER_PORT
     }/api/v1`,
   }),
   endpoints: (builder) => ({
@@ -26,8 +26,8 @@ const videoApi = createApi({
     }),
     uploadVideo: builder.mutation({
       queryFn: async ({ username, data, accessToken }, api) => {
-        const url = `${import.meta.env.VITE_SERVER_API_HOSTNAME}:${
-          import.meta.env.VITE_SERVER_API_PORT
+        const url = `${import.meta.env.VITE_NODE_SERVER_HOSTNAME}:${
+          import.meta.env.VITE_NODE_SERVER_PORT
         }/api/v1/channel/${username}/video/upload`;
 
         const config = {
