@@ -1,11 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { BASE_URL } from "../constants";
 
 const commentApi = createApi({
   reducerPath: "commentApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_NODE_SERVER_HOSTNAME}:${
-      import.meta.env.VITE_NODE_SERVER_PORT
-    }/api/v1`,
+    baseUrl: BASE_URL,
   }),
   endpoints: (builder) => ({
     addComment: builder.mutation({

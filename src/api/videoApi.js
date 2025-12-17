@@ -1,13 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import axios from "axios";
 import { setUploadProgress } from "../features/global/globalSlice";
+import { BASE_URL } from "../constants";
 
 const videoApi = createApi({
   reducerPath: "videoApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_NODE_SERVER_HOSTNAME}:${
-      import.meta.env.VITE_NODE_SERVER_PORT
-    }/api/v1`,
+    baseUrl: BASE_URL,
   }),
   endpoints: (builder) => ({
     getVideosByRecommendation: builder.query({
@@ -26,9 +25,14 @@ const videoApi = createApi({
     }),
     uploadVideo: builder.mutation({
       queryFn: async ({ username, data, accessToken }, api) => {
-        const url = `${import.meta.env.VITE_NODE_SERVER_HOSTNAME}:${
-          import.meta.env.VITE_NODE_SERVER_PORT
-        }/api/v1/channel/${username}/video/upload`;
+        const url =
+          import.meta.env.VITE_NODE_ENV === "prod"
+            ? `${
+                import.meta.env.VITE_NODE_SERVER_HOSTNAME
+              }/api/v1/channel/${username}/video/upload`
+            : `${import.meta.env.VITE_NODE_SERVER_LOCAL_HOSTNAME}:${
+                import.meta.env.VITE_NODE_SERVER_PORT
+              }/api/v1/channel/${username}/video/upload`;
 
         const config = {
           headers: {
