@@ -98,6 +98,7 @@ This allows the application to be accessed from other devices connected to the s
 - **Vite** — Frontend build tool
 - **Redux Toolkit** — State management
 - **React Router** — Client-side routing
+- **RTK Query** - Handle API Calls
 - **Axios** — HTTP client
 - **Tailwind CSS** — Styling
 - **React Hook Form** — Form management
